@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.protobuf'
 }
 protobuf {
@@ -51,6 +52,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -73,4 +77,10 @@ dependencies {
     implementation 'io.grpc:grpc-protobuf-lite:1.35.0'
     implementation 'io.grpc:grpc-stub:1.35.0'
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53'// necessary for Java 9+
+
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/fragmentStub"
+        tools:layout="@layout/stub_fragment"
+        android:name="com.amirhusseinsoori.grpckotlin.ui.FragmentStub"
+        android:label="FragmentStub" />
+    <fragment
+        android:id="@+id/fragmentBlockingStub"
+        tools:layout="@layout/blocking_stub_fragment"
+        android:name="com.amirhusseinsoori.grpckotlin.ui.FragmentBlockingStub"
+        android:label="FragmentBlockingStub" />
+    <fragment
+        android:id="@+id/mainFragment"
+        tools:layout="@layout/main_fragment"
+        android:name="com.amirhusseinsoori.grpckotlin.ui.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentStub"
+            app:destination="@id/fragmentStub" />
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentBlockingStub"
+            app:destination="@id/fragmentBlockingStub" />
+    </fragment>
+</navigation>
