@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.mizannodes";
+option java_outer_classname = "MizanNodesprort";
+
+
+package mizannodes;
+
+service MizanNodes {
+  rpc SetTurnOn (TurnOnRequest) returns (SettingReply) {}
+  rpc SetPhoneInfo (PhoneInfoRequest) returns (CommandReply) {}
+  rpc GetNewWifiMAC (IMEI) returns (MAC) {}
+  rpc GetNotification (IMEI) returns (Notification) {}
+}
+
+message TurnOnRequest {
+  uint64 imei = 1;
+  uint64 powerOnTime = 2;
+}
+
+message IMEI {
+  uint64 imeiNo = 1;
+}
+
+message SettingReply {
+  uint32 intervalCon = 1;
+  uint32 startTime = 2;
+}
+
+message PhoneInfoRequest {
+  uint64 imeiNo = 1;
+  uint32 batteryLevel = 2;
+  uint32 signalLevel = 3;
+  string operatorName = 4;
+  uint32 internetPack = 5;
+}
+
+message CommandReply {
+  string commandCode = 1;
+}
+
+message MAC {
+  string macAdr = 1;
+}
+
+message Notification {
+  string notifyText = 1;
+}
