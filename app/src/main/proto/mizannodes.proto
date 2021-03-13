@@ -38,6 +38,8 @@ message PhoneInfoRequest {
 
 message CommandReply {
   string commandCode = 1;
+  bool isNotify = 2;
+  bool isWifiMac = 3;
 }
 
 message MAC {

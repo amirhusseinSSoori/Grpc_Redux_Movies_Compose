@@ -8,9 +8,7 @@ import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.grpckotlin.databinding.StubFragmentBinding
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import io.grpc.mizannodes.MizanNodesGrpc
-import io.grpc.mizannodes.SettingReply
-import io.grpc.mizannodes.TurnOnRequest
+import io.grpc.mizannodes.*
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.*
 import java.util.*
@@ -20,9 +18,12 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
 
 
     lateinit var turnOnRequest: TurnOnRequest
+
+    lateinit var setInfoRequest: PhoneInfoRequest
     lateinit var channel: ManagedChannel
     lateinit var newStub: MizanNodesGrpc.MizanNodesStub
     lateinit var binding: StubFragmentBinding
+
     val job = Job()
     private val scopeMain = CoroutineScope(job + Dispatchers.Main)
 
@@ -30,11 +31,11 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
         binding = StubFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
         //create Channel
-        channel = ManagedChannelBuilder.forAddress("YourIP", 7070).usePlaintext().build()
+        channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
         newStub = MizanNodesGrpc.newStub(channel)
         //sendRequest
         turnOnRequest =
-            TurnOnRequest.newBuilder().setImei(123).setPowerOnTime(Date().time).build()
+            TurnOnRequest.newBuilder().setImei(111).setPowerOnTime(Date().time).build()
 
         newStub.setTurnOn(turnOnRequest, object : StreamObserver<SettingReply> {
             override fun onNext(value: SettingReply?) {

@@ -9,9 +9,8 @@ import com.amirhusseinsoori.grpckotlin.databinding.BlockingStubFragmentBinding
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import io.grpc.StatusRuntimeException
-import io.grpc.mizannodes.MizanNodesGrpc
-import io.grpc.mizannodes.SettingReply
-import io.grpc.mizannodes.TurnOnRequest
+import io.grpc.mizannodes.*
+import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,43 +23,43 @@ class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
     lateinit var channel: ManagedChannel
     lateinit var blockingStub: MizanNodesGrpc.MizanNodesBlockingStub
     lateinit var settingReply: SettingReply
+    lateinit var commandReply: CommandReply
     lateinit var binding: BlockingStubFragmentBinding
+
+    lateinit var setInfoRequest: PhoneInfoRequest
     val job = Job()
     private val scopeMain = CoroutineScope(job + Dispatchers.Main)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = BlockingStubFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
-        channel = ManagedChannelBuilder.forAddress("YourIP", 7070).usePlaintext().build()
+        channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
 
 
         blockingStub = MizanNodesGrpc.newBlockingStub(channel)
 
 
         //send Request
-        turnOnRequest =
-            TurnOnRequest.newBuilder().setImei(123).setPowerOnTime(Date().time).build()
+
+        setInfoRequest = PhoneInfoRequest.newBuilder().setImeiNo(123).setBatteryLevel(50)
+            .setOperatorName("iranceel").setInternetPack(10).build()
 
         try {
+            CoroutineScope(Job() + Dispatchers.IO).launch {
 
-            //get Response
-            settingReply = blockingStub.setTurnOn(turnOnRequest)
-            binding.txtBlockingStubFFragment.text =
-                "intervalCon :  ${settingReply.intervalCon}" + "    " + "startTime  :  ${settingReply.startTime}"
+                commandReply = blockingStub.setPhoneInfo(setInfoRequest)
+                Log.e("Success", "${commandReply.isNotify}")
+            }
 
-            Log.e("Success", "${settingReply.intervalCon}" + "    " + "${settingReply.startTime}")
         } catch (ex: StatusRuntimeException) {
-
-            Log.e("Failed", Level.WARNING.toString() + "RPC failed:  " + ex.status.description)
-            scopeMain.launch {
-                binding.txtBlockingStubFFragment.text = ex.status.description
-            }
+            Log.e("Success", "${ex.message}")
         } catch (ex: Throwable) {
-            scopeMain.launch {
-                binding.txtBlockingStubFFragment.text = ex.message
-            }
-
-            Log.e("Failed", Level.WARNING.toString() + "RPC failed:  " + ex.message)
+            Log.e("Success", "${ex.message}")
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
