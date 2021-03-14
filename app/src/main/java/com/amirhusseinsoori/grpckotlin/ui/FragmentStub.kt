@@ -51,6 +51,7 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
 
             }
 
+
             override fun onCompleted() {
                 Log.e("TAG", "onCompleted:  ")
             }
