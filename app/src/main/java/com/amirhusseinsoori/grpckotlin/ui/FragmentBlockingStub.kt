@@ -27,9 +27,9 @@ class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
     lateinit var settingReply: SettingReply
     lateinit var commandReply: CommandReply
     lateinit var binding: BlockingStubFragmentBinding
-    private val handlerException = CoroutineExceptionHandler { coroutineContext, throwable ->
+    private val handlerException = CoroutineExceptionHandler { _, throwable ->
 
-        Log.e("Error", "onViewCreated:${throwable.message}")
+        Log.e("Error", "handlerException:${throwable.message}")
 
     }
     lateinit var setInfoRequest: PhoneInfoRequest
@@ -41,14 +41,18 @@ class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
-        blockingStub = MizanNodesGrpc.newBlockingStub(channel)
+        channel = ManagedChannelBuilder.forAddress("168.192.0.5", 7070).usePlaintext()
+            .build()
+        blockingStub =
+            MizanNodesGrpc.newBlockingStub(channel).withInterceptors(TimeoutInterceptor())
 
 
         //send Request
 
         setInfoRequest = PhoneInfoRequest.newBuilder().setImeiNo(123).setBatteryLevel(50)
-            .setOperatorName("iranceel").setInternetPack(10).build()
+            .setOperatorName("irancel").setInternetPack(10).build()
+
+
 
         try {
             scopeIo.launch {
@@ -59,10 +63,10 @@ class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
 
 
         } catch (ex: StatusRuntimeException) {
-            Log.e("Success", "${ex.message}")
+            Log.e("Success", "${ex.status}")
         }
-
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

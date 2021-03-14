@@ -39,12 +39,12 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
 
         newStub.setTurnOn(turnOnRequest, object : StreamObserver<SettingReply> {
             override fun onNext(value: SettingReply?) {
-                Log.e("TAG", "onNext:   $value")
+                Log.e("Status", "onNext:   $value")
                 binding.txtStubFFragment.text = "${value!!.startTime}   ${value!!.intervalCon} "
             }
 
             override fun onError(t: Throwable?) {
-                Log.e("TAG", "onError:  ${Level.WARNING}  ${t!!.message}")
+                Log.e("Status", "onError:  ${Level.WARNING}  ${t!!.message}")
                 scopeMain.launch {
                     binding.txtStubFFragment.text = t.message
                 }
@@ -53,7 +53,7 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
 
 
             override fun onCompleted() {
-                Log.e("TAG", "onCompleted:  ")
+                Log.e("Status", "onCompleted:  ")
             }
 
         })
