@@ -5,24 +5,25 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.amirhusseinsoori.grpckotlin.R
+import com.amirhusseinsoori.grpckotlin.data.network.TimeoutInterceptor
 import com.amirhusseinsoori.grpckotlin.databinding.StubFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import io.grpc.mizannodes.*
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.*
-import java.util.*
-import java.util.logging.Level
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FragmentStub : Fragment(R.layout.stub_fragment) {
 
 
     lateinit var id: ID
     lateinit var mac:MAC
 
-
-    lateinit var channel: ManagedChannel
-    lateinit var newStub: MizanNodesGrpc.MizanNodesStub
+    @Inject
+    lateinit var stub:MizanNodesGrpc.MizanNodesStub
     lateinit var binding: StubFragmentBinding
 
     val job = Job()
@@ -31,13 +32,11 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = StubFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
-        //create Channel
-        channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
-        newStub = MizanNodesGrpc.newStub(channel).withInterceptors(TimeoutInterceptor())
+
         //sendRequest
         id = ID.newBuilder().setAndroidId("111").build()
 
-        newStub.getNewWifiMAC(id, object : StreamObserver<MAC> {
+        stub.getNewWifiMAC(id, object : StreamObserver<MAC> {
             override fun onNext(value: MAC?) {
                 Log.e("Status", "onNext:   $value")
                 scope.launch {

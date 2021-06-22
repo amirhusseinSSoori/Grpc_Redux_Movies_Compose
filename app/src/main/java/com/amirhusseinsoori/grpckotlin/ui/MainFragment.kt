@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.grpckotlin.databinding.MainFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.main_fragment) {
     lateinit var binding: MainFragmentBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
