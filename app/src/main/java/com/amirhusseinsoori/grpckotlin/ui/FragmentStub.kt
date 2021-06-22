@@ -17,41 +17,42 @@ import java.util.logging.Level
 class FragmentStub : Fragment(R.layout.stub_fragment) {
 
 
-    lateinit var turnOnRequest: TurnOnRequest
+    lateinit var id: ID
+    lateinit var mac:MAC
 
-    lateinit var setInfoRequest: PhoneInfoRequest
+
     lateinit var channel: ManagedChannel
     lateinit var newStub: MizanNodesGrpc.MizanNodesStub
     lateinit var binding: StubFragmentBinding
 
     val job = Job()
-    private val scopeMain = CoroutineScope(job + Dispatchers.Main)
+    private val scope= CoroutineScope(job + Dispatchers.Main)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = StubFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
         //create Channel
         channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
-        newStub = MizanNodesGrpc.newStub(channel)
+        newStub = MizanNodesGrpc.newStub(channel).withInterceptors(TimeoutInterceptor())
         //sendRequest
-        turnOnRequest =
-            TurnOnRequest.newBuilder().setImei(111).setPowerOnTime(Date().time).build()
+        id = ID.newBuilder().setAndroidId("111").build()
 
-        newStub.setTurnOn(turnOnRequest, object : StreamObserver<SettingReply> {
-            override fun onNext(value: SettingReply?) {
+        newStub.getNewWifiMAC(id, object : StreamObserver<MAC> {
+            override fun onNext(value: MAC?) {
                 Log.e("Status", "onNext:   $value")
-                binding.txtStubFFragment.text = "${value!!.startTime}   ${value!!.intervalCon} "
-            }
-
-            override fun onError(t: Throwable?) {
-                Log.e("Status", "onError:  ${Level.WARNING}  ${t!!.message}")
-                scopeMain.launch {
-                    binding.txtStubFFragment.text = t.message
+                scope.launch {
+                    binding.txtStubFFragment.text = "${value!!.macAdr}   "
                 }
 
             }
 
+            override fun onError(t: Throwable?) {
+                Log.e("Status", "onError:   ${t!!.message}")
+                scope.launch {
+                    binding.txtStubFFragment.text = t.message
+                }
 
+            }
             override fun onCompleted() {
                 Log.e("Status", "onCompleted:  ")
             }

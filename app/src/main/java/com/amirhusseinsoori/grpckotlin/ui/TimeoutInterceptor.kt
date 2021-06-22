@@ -8,7 +8,7 @@ class TimeoutInterceptor : ClientInterceptor {
         method: MethodDescriptor<ReqT, RespT>, callOptions: CallOptions, next: Channel
     ): ClientCall<ReqT, RespT> {
         var callOptions = callOptions
-        callOptions = callOptions.withDeadlineAfter(20, TimeUnit.SECONDS)
+        callOptions = callOptions.withDeadlineAfter(4, TimeUnit.SECONDS)
         return next.newCall(method, callOptions)
     }
 }

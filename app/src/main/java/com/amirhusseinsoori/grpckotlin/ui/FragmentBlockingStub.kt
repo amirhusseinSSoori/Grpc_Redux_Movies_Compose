@@ -21,49 +21,38 @@ import kotlin.math.log
 
 class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
     lateinit var turnOnRequest: TurnOnRequest
+    lateinit var settingReply: SettingReply
     lateinit var channel: ManagedChannel
 
     lateinit var blockingStub: MizanNodesGrpc.MizanNodesBlockingStub
-    lateinit var settingReply: SettingReply
-    lateinit var commandReply: CommandReply
     lateinit var binding: BlockingStubFragmentBinding
     private val handlerException = CoroutineExceptionHandler { _, throwable ->
-
         Log.e("Error", "handlerException:${throwable.message}")
-
     }
-    lateinit var setInfoRequest: PhoneInfoRequest
+
     val job = Job()
-    var scopeIo = CoroutineScope(Job() + Dispatchers.IO + handlerException)
+    var scope = CoroutineScope(Job() + Dispatchers.Main + handlerException)
     private val scopeMain = CoroutineScope(job + Dispatchers.Main)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = BlockingStubFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
 
 
-        channel = ManagedChannelBuilder.forAddress("168.192.0.5", 7070).usePlaintext()
-            .build()
-        blockingStub =
-            MizanNodesGrpc.newBlockingStub(channel).withInterceptors(TimeoutInterceptor())
+        channel = ManagedChannelBuilder.forAddress("192.168.0.5", 7070).usePlaintext().build()
+        blockingStub = MizanNodesGrpc.newBlockingStub(channel).withInterceptors(TimeoutInterceptor())
 
 
         //send Request
+        turnOnRequest = TurnOnRequest.newBuilder().setAndroidId("111").setPowerOnTime(Date().time).build()
 
-        setInfoRequest = PhoneInfoRequest.newBuilder().setImeiNo(123).setBatteryLevel(50)
-            .setOperatorName("irancel").setInternetPack(10).build()
+        scope.launch {
+            try {
+                settingReply = blockingStub.setTurnOn(turnOnRequest)
+                binding.txtBlockingStubFFragment.text = "${settingReply.startTime}  ${settingReply.intervalCon}"
 
-
-
-        try {
-            scopeIo.launch {
-
-                commandReply = blockingStub.setPhoneInfo(setInfoRequest)
-                Log.e("Success", "${commandReply.isNotify}")
+            } catch (ex: StatusRuntimeException) {
+                binding.txtBlockingStubFFragment.text = "${ex.message}"
             }
-
-
-        } catch (ex: StatusRuntimeException) {
-            Log.e("Success", "${ex.status}")
         }
     }
 

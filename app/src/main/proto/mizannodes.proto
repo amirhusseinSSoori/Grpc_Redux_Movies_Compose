@@ -9,43 +9,27 @@ package mizannodes;
 
 service MizanNodes {
   rpc SetTurnOn (TurnOnRequest) returns (SettingReply) {}
-  rpc SetPhoneInfo (PhoneInfoRequest) returns (CommandReply) {}
-  rpc GetNewWifiMAC (IMEI) returns (MAC) {}
-  rpc GetNotification (IMEI) returns (Notification) {}
+  rpc GetNewWifiMAC (ID) returns (MAC) {}
 }
 
 message TurnOnRequest {
-  uint64 imei = 1;
+  string androidId = 1;
   uint64 powerOnTime = 2;
 }
 
-message IMEI {
-  uint64 imeiNo = 1;
-}
+
 
 message SettingReply {
   uint32 intervalCon = 1;
   uint32 startTime = 2;
 }
 
-message PhoneInfoRequest {
-  uint64 imeiNo = 1;
-  uint32 batteryLevel = 2;
-  uint32 signalLevel = 3;
-  string operatorName = 4;
-  uint32 internetPack = 5;
+message ID {
+  string androidId = 1;
 }
-
-message CommandReply {
-  string commandCode = 1;
-  bool isNotify = 2;
-  bool isWifiMac = 3;
-}
-
 message MAC {
   string macAdr = 1;
 }
 
-message Notification {
-  string notifyText = 1;
-}
+
+
