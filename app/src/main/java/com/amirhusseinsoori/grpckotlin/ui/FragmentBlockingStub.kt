@@ -44,7 +44,7 @@ class FragmentBlockingStub : Fragment(R.layout.blocking_stub_fragment) {
 
 
         //send Request
-        turnOnRequest = TurnOnRequest.newBuilder().setAndroidId("111").setPowerOnTime(Date().time).build()
+        turnOnRequest = TurnOnRequest.newBuilder().setAndroidId("111").setImei("111").setPowerOnTime(Date().time).build()
 
         scope.launch {
             try {

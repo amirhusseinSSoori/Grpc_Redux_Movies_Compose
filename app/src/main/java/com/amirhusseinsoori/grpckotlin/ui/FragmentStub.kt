@@ -34,7 +34,7 @@ class FragmentStub : Fragment(R.layout.stub_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         //sendRequest
-        id = ID.newBuilder().setAndroidId("111").build()
+        id = ID.newBuilder().setAndroidId("111").setImei("111").build()
 
         stub.getNewWifiMAC(id, object : StreamObserver<MAC> {
             override fun onNext(value: MAC?) {

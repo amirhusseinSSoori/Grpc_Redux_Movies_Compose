@@ -14,7 +14,8 @@ service MizanNodes {
 
 message TurnOnRequest {
   string androidId = 1;
-  uint64 powerOnTime = 2;
+  string imei=2;
+  uint64 powerOnTime = 3;
 }
 
 
@@ -26,6 +27,7 @@ message SettingReply {
 
 message ID {
   string androidId = 1;
+    string imei = 2;
 }
 message MAC {
   string macAdr = 1;
