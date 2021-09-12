@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import io.grpc.mizannodes.MizanNodesGrpc
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 @Module
@@ -37,6 +38,7 @@ object GrpcModule {
         return ManagedChannelBuilder.forAddress(
             "192.168.0.5",
             7070)
+            .executor(Executors.newSingleThreadExecutor())
             .usePlaintext()
             .build()
     }
