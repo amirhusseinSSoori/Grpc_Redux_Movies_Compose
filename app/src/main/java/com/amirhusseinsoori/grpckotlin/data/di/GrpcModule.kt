@@ -7,7 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import io.grpc.mizannodes.MizanNodesGrpc
+import io.grpc.mizannodes.BodyGrpc
+
 import java.util.concurrent.Executors
 import javax.inject.Singleton
 
@@ -17,16 +18,11 @@ object GrpcModule {
 
 
     @Provides
-    fun setBlockingStub(timeout: TimeoutInterceptor, channel: ManagedChannel): MizanNodesGrpc.MizanNodesBlockingStub {
-        return MizanNodesGrpc.newBlockingStub(
-            channel
-        ).withInterceptors(timeout)
-    }
-
-
-    @Provides
-    fun setStub(timeout: TimeoutInterceptor, channel: ManagedChannel): MizanNodesGrpc.MizanNodesStub {
-        return MizanNodesGrpc.newStub(
+    fun setBlockingStub(
+        timeout: TimeoutInterceptor,
+        channel: ManagedChannel
+    ): BodyGrpc.BodyBlockingStub {
+        return BodyGrpc.newBlockingStub(
             channel
         ).withInterceptors(timeout)
     }
@@ -36,8 +32,9 @@ object GrpcModule {
     @Provides
     fun provideChannel(): ManagedChannel {
         return ManagedChannelBuilder.forAddress(
-            "192.168.0.5",
-            7070)
+            "192.168.168.147",
+            50051
+        )
             .executor(Executors.newSingleThreadExecutor())
             .usePlaintext()
             .build()

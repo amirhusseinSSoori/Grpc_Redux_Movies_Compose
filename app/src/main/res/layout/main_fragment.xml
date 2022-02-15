@@ -5,27 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_mainF_stub"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Stub"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_mainF_blocking_stub"
-        app:layout_constraintStart_toStartOf="@+id/btn_mainF_blocking_stub"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_mainF_blocking_stub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BlockingStub"
+        android:text="Hello Grpc"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_mainF_stub"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

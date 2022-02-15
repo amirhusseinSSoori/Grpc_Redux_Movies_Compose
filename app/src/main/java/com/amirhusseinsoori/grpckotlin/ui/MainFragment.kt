@@ -15,9 +15,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         binding = MainFragmentBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnMainFStub.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_fragmentStub)
-        }
         binding.btnMainFBlockingStub.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_fragmentBlockingStub)
         }

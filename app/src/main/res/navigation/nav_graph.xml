@@ -5,11 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainFragment">
 
-    <fragment
-        android:id="@+id/fragmentStub"
-        tools:layout="@layout/stub_fragment"
-        android:name="com.amirhusseinsoori.grpckotlin.ui.FragmentStub"
-        android:label="FragmentStub" />
+
     <fragment
         android:id="@+id/fragmentBlockingStub"
         tools:layout="@layout/blocking_stub_fragment"
@@ -20,9 +16,7 @@
         tools:layout="@layout/main_fragment"
         android:name="com.amirhusseinsoori.grpckotlin.ui.MainFragment"
         android:label="MainFragment" >
-        <action
-            android:id="@+id/action_mainFragment_to_fragmentStub"
-            app:destination="@id/fragmentStub" />
+
         <action
             android:id="@+id/action_mainFragment_to_fragmentBlockingStub"
             app:destination="@id/fragmentBlockingStub" />

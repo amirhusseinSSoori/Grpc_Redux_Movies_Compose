@@ -5,32 +5,21 @@ option java_package = "io.grpc.mizannodes";
 option java_outer_classname = "MizanNodesprort";
 
 
-package mizannodes;
+package ServerBody;
 
-service MizanNodes {
-  rpc SetTurnOn (TurnOnRequest) returns (SettingReply) {}
-  rpc GetNewWifiMAC (ID) returns (MAC) {}
+
+service Body {
+  rpc GetVideos (VideoRequest) returns (VideoReply) {}
 }
 
-message TurnOnRequest {
-  string androidId = 1;
-  string imei=2;
-  uint64 powerOnTime = 3;
+// The request message containing raw String
+message VideoRequest {
+  string filter = 1;
 }
 
-
-
-message SettingReply {
-  uint32 intervalCon = 1;
-  uint32 startTime = 2;
-}
-
-message ID {
-  string androidId = 1;
-    string imei = 2;
-}
-message MAC {
-  string macAdr = 1;
+// The response message containing the Json
+message VideoReply {
+  string json = 1;
 }
 
 
