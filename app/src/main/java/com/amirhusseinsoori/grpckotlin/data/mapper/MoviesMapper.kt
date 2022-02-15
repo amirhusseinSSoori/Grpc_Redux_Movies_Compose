@@ -14,8 +14,6 @@ fun MoviesItem.moviesItemMapToDomain(): DomainMoviesItem {
         Views = Views ?: 0
     )
 }
-
-
 fun Movies.moviesMapToDomain(): List<DomainMoviesItem> {
     return map { it.moviesItemMapToDomain() }
 }
