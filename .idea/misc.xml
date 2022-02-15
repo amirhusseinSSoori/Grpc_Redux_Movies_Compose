@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/blocking_stub_fragment.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/fragment_blocking_stub.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/stub_fragment.xml" value="0.29393115942028986" />
       </map>

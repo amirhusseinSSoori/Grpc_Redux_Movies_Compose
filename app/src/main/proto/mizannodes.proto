@@ -21,6 +21,3 @@ message VideoRequest {
 message VideoReply {
   string json = 1;
 }
-
-
-

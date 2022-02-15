@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/fragmentBlockingStub"
-        tools:layout="@layout/blocking_stub_fragment"
-        android:name="com.amirhusseinsoori.grpckotlin.ui.FragmentBlockingStub"
+        tools:layout="@layout/fragment_blocking_stub"
+        android:name="com.amirhusseinsoori.grpckotlin.ui.movie.MovieFragment"
         android:label="FragmentBlockingStub" />
     <fragment
         android:id="@+id/mainFragment"
-        tools:layout="@layout/main_fragment"
+        tools:layout="@layout/fragment_main"
         android:name="com.amirhusseinsoori.grpckotlin.ui.MainFragment"
         android:label="MainFragment" >
 
