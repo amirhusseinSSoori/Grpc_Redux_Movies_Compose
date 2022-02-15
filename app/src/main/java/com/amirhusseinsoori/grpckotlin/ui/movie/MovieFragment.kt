@@ -8,11 +8,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-
 import com.amirhusseinsoori.grpckotlin.R
+import com.amirhusseinsoori.grpckotlin.data.network.response.Movies
 import com.amirhusseinsoori.grpckotlin.databinding.FragmentBlockingStubBinding
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+
 
 @AndroidEntryPoint
 class MovieFragment : Fragment(R.layout.fragment_blocking_stub) {
@@ -32,6 +35,8 @@ class MovieFragment : Fragment(R.layout.fragment_blocking_stub) {
         }
 
     }
+
+
 
 
 

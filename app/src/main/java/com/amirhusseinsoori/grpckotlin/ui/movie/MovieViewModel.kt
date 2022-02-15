@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(val repository: MovieListRepository) :ViewModel() {
+class MovieViewModel @Inject constructor(val repository: MovieListRepository) : ViewModel() {
 
 
-   private val state= MutableStateFlow<String>("")
-    val _state=state.asStateFlow()
+    private val state = MutableStateFlow<String>("")
+    val _state = state.asStateFlow()
 
     init {
 
@@ -24,30 +24,19 @@ class MovieViewModel @Inject constructor(val repository: MovieListRepository) :V
     }
 
 
-
-
-
-
-
-
-
-    private fun setData(){
+    private fun setData() {
         viewModelScope.launch {
-            repository.getAllMovies().collect() { result->
+            repository.getAllMovies().collect() { result ->
 
-               result.fold(onSuccess = {
-                   state.value=it.json
-               },onFailure = {
-                   state.value=it.message!!
-               })
+                result.fold(onSuccess = {
+                    state.value = it.toString()
+                }, onFailure = {
+                    state.value = it.message!!
+                })
 
             }
         }
     }
-
-
-
-
 
 
 }
