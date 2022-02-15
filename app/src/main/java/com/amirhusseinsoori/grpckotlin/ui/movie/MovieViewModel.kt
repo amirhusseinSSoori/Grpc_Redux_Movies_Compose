@@ -19,7 +19,6 @@ class MovieViewModel @Inject constructor(val repository: MovieListRepository) : 
     val _state = state.asStateFlow()
 
     init {
-
         setData()
     }
 
@@ -27,7 +26,6 @@ class MovieViewModel @Inject constructor(val repository: MovieListRepository) : 
     private fun setData() {
         viewModelScope.launch {
             repository.getAllMovies().collect() { result ->
-
                 result.fold(onSuccess = {
                     state.value = it.toString()
                 }, onFailure = {
