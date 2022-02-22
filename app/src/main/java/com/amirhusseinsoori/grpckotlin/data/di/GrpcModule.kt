@@ -32,7 +32,7 @@ object GrpcModule {
     @Provides
     fun provideChannel(): ManagedChannel {
         return ManagedChannelBuilder.forAddress(
-            "192.168.14.147",
+            "192.168.59.147",
             50051
         )
             .executor(Executors.newSingleThreadExecutor())
