@@ -1,8 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.data.mapper
 
-import com.amirhusseinsoori.grpckotlin.domain.DomainMoviesItem
+import com.amirhusseinsoori.grpckotlin.domain.entity.DomainMoviesItem
 import io.grpc.movienode.VideoListXModel
-import io.grpc.movienode.VideoListXReply
 
 
 fun VideoListXModel.moviesItemMapToDomain(): DomainMoviesItem {

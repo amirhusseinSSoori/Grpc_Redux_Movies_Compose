@@ -2,8 +2,9 @@ package com.amirhusseinsoori.grpckotlin.ui.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amirhusseinsoori.grpckotlin.data.repository.MovieListRepository
+import com.amirhusseinsoori.grpckotlin.data.repository.MovieListRepositoryImp
 import com.amirhusseinsoori.grpckotlin.domain.exception.fold
+import com.amirhusseinsoori.grpckotlin.domain.usecase.ShowAllMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(val repository: MovieListRepository) : ViewModel() {
+class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAllMovieUseCase) : ViewModel() {
 
 
     private val state = MutableStateFlow<String>("")
@@ -25,7 +26,7 @@ class MovieViewModel @Inject constructor(val repository: MovieListRepository) : 
 
     private fun setData() {
         viewModelScope.launch {
-            repository.getAllMovies().collect() { result ->
+            showAllMovieUseCase.execute().collect() { result ->
                 result.fold(onSuccess = {
                     state.value = it.toString()
                 }, onLoading = {

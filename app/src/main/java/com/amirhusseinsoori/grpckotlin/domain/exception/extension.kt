@@ -1,6 +1,6 @@
 package com.amirhusseinsoori.grpckotlin.domain.exception
 
- inline fun <R, T> GrpcResult<T>.fold(
+inline fun <R, T> GrpcResult<T>.fold(
     onSuccess: (value: T) -> R,
     onLoading: (loading: LoadingOccurs) -> R,
     onFailure: (exception: Throwable) -> R
@@ -10,7 +10,6 @@ package com.amirhusseinsoori.grpckotlin.domain.exception
         null -> {
             onLoading(LoadingOccurs.FinishLoading)
             onSuccess(value as T)
-
         }
         else -> {
             onLoading(LoadingOccurs.FinishLoading)
