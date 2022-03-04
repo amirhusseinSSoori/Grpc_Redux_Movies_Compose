@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.domain.exception
+package com.amirhusseinsoori.domain.exception
 
 sealed class LoadingOccurs {
     object StartLoading : LoadingOccurs()

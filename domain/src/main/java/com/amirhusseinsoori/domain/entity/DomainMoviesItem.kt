@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.domain.entity
+package com.amirhusseinsoori.domain.entity
 
 data class DomainMoviesItem (
     val Description: String,

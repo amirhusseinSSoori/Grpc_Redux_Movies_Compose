@@ -1,9 +1,9 @@
-package com.amirhusseinsoori.grpckotlin.domain.usecase
+package com.amirhusseinsoori.domain.usecase
 
-import com.amirhusseinsoori.grpckotlin.domain.entity.DomainMoviesItem
-import com.amirhusseinsoori.grpckotlin.domain.exception.GrpcResult
-import com.amirhusseinsoori.grpckotlin.domain.repository.MovieListRepository
-import com.amirhusseinsoori.grpckotlin.domain.usecase.base.UseCaseImmediate
+import com.amirhusseinsoori.domain.entity.DomainMoviesItem
+import com.amirhusseinsoori.domain.exception.GrpcResult
+import com.amirhusseinsoori.domain.repository.MovieListRepository
+import com.amirhusseinsoori.domain.usecase.base.UseCaseImmediate
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

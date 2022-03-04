@@ -1,6 +1,6 @@
-package com.amirhusseinsoori.grpckotlin.domain.exception
+package com.amirhusseinsoori.domain.exception
 
-class GrpcResult<T> constructor(
+public class GrpcResult<T> constructor(
     val value: Any?
 ) {
     fun exceptionOrNull(): Throwable? =

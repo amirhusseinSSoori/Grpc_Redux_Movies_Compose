@@ -23,3 +23,5 @@ dependencyResolutionManagement {
 
 include ':app'
 rootProject.name = "GrpcKotlin"
+include ':domain'
+include ':data'

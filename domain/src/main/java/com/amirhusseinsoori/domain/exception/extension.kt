@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.domain.exception
+package com.amirhusseinsoori.domain.exception
 
 inline fun <R, T> GrpcResult<T>.fold(
     onSuccess: (value: T) -> R,

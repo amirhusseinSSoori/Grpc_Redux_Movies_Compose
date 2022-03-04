@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.data.mapper
 
-import com.amirhusseinsoori.grpckotlin.domain.entity.DomainMoviesItem
+
+import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import io.grpc.movienode.VideoListXModel
 
 
