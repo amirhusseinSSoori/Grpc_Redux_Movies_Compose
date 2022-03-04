@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class MovieListRepository @Inject constructor(var remoteSource: MovieRemoteSource) {
     fun getAllMovies(): Flow<GrpcResult<List<DomainMoviesItem>>> = flow {
-        emit(GrpcResult.success(remoteSource.getAllMovie().moviesMapToDomain()))
+        emit(GrpcResult.success(remoteSource.getAllMovie().videoListXList.moviesMapToDomain()))
     }.catch { ex ->
         emit(GrpcResult.failure(ex))
     }.flowOn(Dispatchers.IO)

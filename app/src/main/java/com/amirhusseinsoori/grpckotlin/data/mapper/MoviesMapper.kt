@@ -1,19 +1,19 @@
 package com.amirhusseinsoori.grpckotlin.data.mapper
 
-import com.amirhusseinsoori.grpckotlin.data.network.response.Movies
-import com.amirhusseinsoori.grpckotlin.data.network.response.MoviesItem
 import com.amirhusseinsoori.grpckotlin.domain.DomainMoviesItem
+import io.grpc.movienode.VideoListXModel
+import io.grpc.movienode.VideoListXReply
 
 
-fun MoviesItem.moviesItemMapToDomain(): DomainMoviesItem {
+fun VideoListXModel.moviesItemMapToDomain(): DomainMoviesItem {
     return DomainMoviesItem(
-        Description = Description ?: "",
-        ID = ID ?: 0,
-        Name = Name ?: "",
-        Picture = Picture ?: "",
-        Views = Views ?: 0
+        Description = description ?: "",
+        ID = id ?: 0,
+        Name = name ?: "",
+        Picture = picture ?: "",
+        Views = views ?: 0
     )
 }
-fun Movies.moviesMapToDomain(): List<DomainMoviesItem> {
+fun List<VideoListXModel> .moviesMapToDomain(): List<DomainMoviesItem> {
     return map { it.moviesItemMapToDomain() }
 }

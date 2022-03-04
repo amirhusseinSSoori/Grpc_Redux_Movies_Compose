@@ -7,7 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import io.grpc.mizannodes.BodyGrpc
+import io.grpc.movienode.BodyGrpc
+
 
 import java.util.concurrent.Executors
 import javax.inject.Singleton
@@ -32,7 +33,7 @@ object GrpcModule {
     @Provides
     fun provideChannel(): ManagedChannel {
         return ManagedChannelBuilder.forAddress(
-            "192.168.178.147",
+            "192.168.127.147",
             50051
         )
             .executor(Executors.newSingleThreadExecutor())

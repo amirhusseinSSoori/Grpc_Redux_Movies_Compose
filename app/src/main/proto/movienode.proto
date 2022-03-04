@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.movienode";
+option java_outer_classname = "Movienodeprort";
+
+
+package ServerBody;
+
+
+service Body {
+  rpc GetVideos (VideoRequest) returns (VideoReply) {}
+  rpc GetVideosX (VideoListXRequest) returns (VideoListXReply) {}
+}
+
+
+// The request message containing raw String
+message VideoRequest {
+  string filter = 1;
+}
+// The response message containing the Json
+message VideoReply {
+  string json = 1;
+}
+
+
+
+message VideoListXRequest {
+  string filter = 1;
+}
+message VideoListXReply {
+  repeated VideoListXModel VideoListX = 1;
+}
+message VideoListXModel {
+  int32  ID = 1;
+  string Name = 2;
+  string Description = 3;
+  string Picture = 4;
+  int32  Views = 5;
+}
