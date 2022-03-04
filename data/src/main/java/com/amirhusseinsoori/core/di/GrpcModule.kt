@@ -1,6 +1,6 @@
-package com.amirhusseinsoori.grpckotlin.data.di
+package com.amirhusseinsoori.data.di
 
-import com.amirhusseinsoori.grpckotlin.data.network.TimeoutInterceptor
+import com.amirhusseinsoori.core.network.TimeoutInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

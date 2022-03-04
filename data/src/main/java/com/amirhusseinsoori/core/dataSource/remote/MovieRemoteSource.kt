@@ -1,8 +1,9 @@
-package com.amirhusseinsoori.grpckotlin.data.dataSource.remote
+package com.amirhusseinsoori.core.dataSource.remote
 
-
-import com.google.gson.Gson
-import io.grpc.movienode.*
+import io.grpc.*
+import io.grpc.movienode.BodyGrpc
+import io.grpc.movienode.VideoListXReply
+import io.grpc.movienode.VideoListXRequest
 
 import javax.inject.Inject
 

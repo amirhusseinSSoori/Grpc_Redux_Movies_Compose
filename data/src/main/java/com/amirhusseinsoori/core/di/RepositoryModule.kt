@@ -1,7 +1,7 @@
-package com.amirhusseinsoori.grpckotlin.data.di
+package com.amirhusseinsoori.core.di
 
 import com.amirhusseinsoori.domain.repository.MovieListRepository
-import com.amirhusseinsoori.grpckotlin.data.repository.MovieListRepositoryImp
+import com.amirhusseinsoori.core.repository.MovieListRepositoryImp
 
 import dagger.Binds
 import dagger.Module

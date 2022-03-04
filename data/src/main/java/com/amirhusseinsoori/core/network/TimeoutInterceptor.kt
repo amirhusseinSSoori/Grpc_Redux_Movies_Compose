@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.data.network
+package com.amirhusseinsoori.core.network
 
 import io.grpc.*
 import java.util.concurrent.TimeUnit
