@@ -5,7 +5,7 @@ import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.exception.GrpcResult
 import com.amirhusseinsoori.domain.repository.MovieListRepository
 import com.amirhusseinsoori.core.dataSource.remote.MovieRemoteSource
-import com.amirhusseinsoori.data.mapper.moviesMapToDomain
+import com.amirhusseinsoori.core.mapper.moviesMapToDomain
 
 
 import kotlinx.coroutines.Dispatchers
