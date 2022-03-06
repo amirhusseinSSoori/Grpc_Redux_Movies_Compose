@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.core.mapper
+package com.amirhusseinsoori.data.mapper
 
 
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem

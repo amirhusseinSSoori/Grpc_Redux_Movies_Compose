@@ -1,6 +1,6 @@
 package com.amirhusseinsoori.data.di
 
-import com.amirhusseinsoori.core.network.TimeoutInterceptor
+import com.amirhusseinsoori.data.network.TimeoutInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

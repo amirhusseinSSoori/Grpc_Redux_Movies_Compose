@@ -1,7 +1,7 @@
-package com.amirhusseinsoori.core.di
+package com.amirhusseinsoori.data.di
 
 import com.amirhusseinsoori.domain.repository.MovieListRepository
-import com.amirhusseinsoori.core.repository.MovieListRepositoryImp
+import com.amirhusseinsoori.data.repository.MovieListRepositoryImp
 
 import dagger.Binds
 import dagger.Module
