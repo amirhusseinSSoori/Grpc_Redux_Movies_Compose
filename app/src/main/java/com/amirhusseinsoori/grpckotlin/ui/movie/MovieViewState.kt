@@ -10,5 +10,4 @@ import com.amirhusseinsoori.grpckotlin.ui.redux.State
 data class MovieViewState(
     val listMovies: List<DomainMoviesItem> = emptyList(),
     val showProgressBar: Boolean = false,
-    val messageError: String? = null,
 ) : State

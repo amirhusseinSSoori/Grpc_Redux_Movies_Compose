@@ -25,12 +25,19 @@ class MovieReducer : Reducer<MovieViewState, MoviesAction> {
             MoviesAction.LoadingFinished-> {
                 stateAfterLoadingCompleted(currentState)
             }
+//            is MoviesAction.ShowFailed -> {
+//                stateShowError(currentState)
+//            }
+
 
             else -> currentState
         }
     }
 
-
+//    private fun stateShowError(currentState: MovieViewState) =
+//        currentState.copy(
+//            messageError =currentState.messageError,
+//        )
 
     private fun stateAfterLoadingStarted(currentState: MovieViewState) =
         currentState.copy(
@@ -50,6 +57,8 @@ class MovieReducer : Reducer<MovieViewState, MoviesAction> {
     ) = currentState.copy(
         listMovies = action.list,
     )
+
+
 
 
 }

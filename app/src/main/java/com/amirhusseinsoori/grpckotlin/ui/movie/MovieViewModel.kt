@@ -9,6 +9,8 @@ import com.amirhusseinsoori.grpckotlin.ui.redux.Store
 
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAllMovieUseCase) :
     ViewModel() {
-    
+
     private val store = Store(
         initialState = MovieViewState(),
         reducer = MovieReducer(),
@@ -29,7 +31,7 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
         )
     )
     val viewState: StateFlow<MovieViewState> = store.state
-
+    val viewEffect: Flow<MovieEffect> = store.effect
     init {
         setData()
     }
@@ -40,12 +42,11 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
             showAllMovieUseCase.execute().collect() { result ->
                 result.fold(onSuccess = {
                     store.dispatch(MoviesAction.LoadingFinished)
-                    store.dispatch(MoviesAction.ShowAllMovie(it))
                 }, onLoading = {
                     store.dispatch(MoviesAction.LoadingStarted)
                 }, onFailure = {
                     store.dispatch(MoviesAction.LoadingFinished)
-                    store.dispatch(MoviesAction.ShowFailed(it))
+                    store.dispatch { MovieEffect(it.message) }
                 })
 
             }

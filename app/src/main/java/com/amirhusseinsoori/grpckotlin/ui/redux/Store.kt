@@ -1,7 +1,14 @@
 package com.amirhusseinsoori.grpckotlin.ui.redux
 
+
+import com.amirhusseinsoori.grpckotlin.ui.movie.MovieEffect
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 /**
  * A [Store] is our state container for a given screen.
@@ -12,7 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
  * @param[middlewares] This is a list of [Middleware] entities for handling any side effects
  * for actions dispatched to this store.
  */
-class Store<S: State, A: Action>(
+class Store<S : State, A : Action>(
     initialState: S,
     private val reducer: Reducer<S, A>,
     private val middlewares: List<Middleware<S, A>> = emptyList(),
@@ -20,6 +27,10 @@ class Store<S: State, A: Action>(
 
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<S> = _state
+
+
+    private val _effect: Channel<MovieEffect> = Channel()
+    val effect = _effect.receiveAsFlow()
 
     private val currentState: S
         get() = _state.value
@@ -31,5 +42,12 @@ class Store<S: State, A: Action>(
 
         val newState = reducer.reduce(currentState, action)
         _state.value = newState
+
     }
+
+    suspend fun dispatch(builder: () -> MovieEffect) {
+        val effectValue = builder()
+        _effect.send(effectValue)
+    }
+
 }
