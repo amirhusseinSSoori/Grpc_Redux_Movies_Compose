@@ -4,6 +4,7 @@ import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
 import com.amirhusseinsoori.domain.repository.MovieListRepository
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -25,7 +26,8 @@ class MovieListRepositoryImpTest{
     fun getShowAllMovie() {
         runBlocking {
             launch {
-                repository.getAllMovies()
+                repository.getAllMovies().first()
+                Mockito.verify(mockRemoteSource).getAllMovie()
                 this.cancel()
             }
             return@runBlocking

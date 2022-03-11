@@ -9,11 +9,9 @@ import androidx.compose.runtime.collectAsState
 @Composable
 fun Movie(viewModel: MovieViewModel) {
 
-    viewModel._state.collectAsState().let {
-
-
+    viewModel.viewState.collectAsState().let {
         Column() {
-            Text(text = it.value)
+            Text(text = it.value.toString())
         }
     }
 
