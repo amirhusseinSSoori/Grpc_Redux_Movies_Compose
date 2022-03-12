@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.ui.movie
+package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.ui.redux.State

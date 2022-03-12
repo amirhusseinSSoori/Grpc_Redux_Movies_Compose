@@ -2,18 +2,20 @@ package com.amirhusseinsoori.grpckotlin.ui.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amirhusseinsoori.domain.exception.LoadingOccurs
 import com.amirhusseinsoori.domain.exception.fold
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
+import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
+import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
+import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
+import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 import com.amirhusseinsoori.grpckotlin.ui.redux.LoggingMiddleware
 import com.amirhusseinsoori.grpckotlin.ui.redux.Store
 
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +27,7 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
 
     private val store = Store(
         initialState = MovieViewState(),
+        initialEffect = MovieEffect(),
         reducer = MovieReducer(),
         middlewares = listOf(
             LoggingMiddleware(),
@@ -32,23 +35,56 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
     )
     val viewState: StateFlow<MovieViewState> = store.state
     val viewEffect: Flow<MovieEffect> = store.effect
+
     init {
-        setData()
+        subscribeEvents()
+        callEvent()
     }
 
 
-    private fun setData() {
+    private fun subscribeEvents() {
+        viewModelScope.launch {
+            store.event.collect { event ->
+                handleEvent(event)
+            }
+        }
+    }
+
+
+
+    fun callEvent(){
+        store.setEvent(MovieAction.StartAll)
+    }
+
+
+    private fun handleEvent(action: MovieAction) {
+        when (action) {
+            is MovieAction.StartAll -> {
+                showAllMovies()
+            }
+        }
+    }
+
+
+    private fun showAllMovies() {
         viewModelScope.launch {
             showAllMovieUseCase.execute().collect() { result ->
                 result.fold(onSuccess = {
-                    store.dispatch(MoviesAction.LoadingFinished)
-                }, onLoading = {
-                    store.dispatch(MoviesAction.LoadingStarted)
-                }, onFailure = {
-                    store.dispatch(MoviesAction.LoadingFinished)
-                    store.dispatch { MovieEffect(it.message) }
-                })
+                    store.dispatch(MovieAction.ShowAllMovie(it))
 
+                }, onLoading = { loading ->
+                    when (loading) {
+                        LoadingOccurs.StartLoading -> {
+                            store.effect(MovieAction.ShowHide("NoError")) { MovieEffect("NoError") }
+                            store.dispatch(MovieAction.LoadingStarted)
+                        }
+                        LoadingOccurs.FinishLoading -> {
+                            store.dispatch(MovieAction.LoadingFinished)
+                        }
+                    }
+                }) {
+                    store.effect(MovieAction.ShowFailed(it.message!!)) { MovieEffect(it.message!!) }
+                }
             }
         }
     }

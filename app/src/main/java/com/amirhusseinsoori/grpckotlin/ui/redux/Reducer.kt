@@ -1,6 +1,6 @@
 package com.amirhusseinsoori.grpckotlin.ui.redux
 
-interface Reducer<S: State, A: Action> {
+interface Reducer<S: State,E:Effect, A: Action> {
 
     /**
      * Given a [currentState] and some [action] that the user took, produce a new [State].
@@ -9,4 +9,6 @@ interface Reducer<S: State, A: Action> {
      * with some specific user intent or action.
      */
     fun reduce(currentState: S, action: A): S
+    fun reducer(currentEffect: E, action: A): E
+
 }

@@ -1,13 +1,11 @@
 package com.amirhusseinsoori.grpckotlin.ui.redux
 
 
-import com.amirhusseinsoori.grpckotlin.ui.movie.MovieEffect
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 /**
@@ -19,25 +17,35 @@ import kotlinx.coroutines.launch
  * @param[middlewares] This is a list of [Middleware] entities for handling any side effects
  * for actions dispatched to this store.
  */
-class Store<S : State, A : Action>(
+class Store<S : State, E : Effect, A : Action>(
     initialState: S,
-    private val reducer: Reducer<S, A>,
-    private val middlewares: List<Middleware<S, A>> = emptyList(),
+    val initialEffect: E,
+    private val reducer: Reducer<S, E, A>,
+    private val middlewares: List<Middleware<S, E, A>> = emptyList(),
 ) {
 
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<S> = _state
 
-
-    private val _effect: Channel<MovieEffect> = Channel()
-    val effect = _effect.receiveAsFlow()
-
     private val currentState: S
         get() = _state.value
 
+
+    private val _effect: Channel<E> = Channel()
+    val effect = _effect.receiveAsFlow()
+
+    private val _event : MutableSharedFlow<A> = MutableSharedFlow()
+    val event = _event.asSharedFlow()
+
+
+    fun setEvent(event : A) {
+        val newEvent = event
+        CoroutineScope(Dispatchers.IO).launch { _event.emit(newEvent) }
+    }
+
     suspend fun dispatch(action: A) {
         middlewares.forEach { middleware ->
-            middleware.process(action, currentState, this)
+            middleware.process(action, currentState, initialEffect, this)
         }
 
         val newState = reducer.reduce(currentState, action)
@@ -45,8 +53,8 @@ class Store<S : State, A : Action>(
 
     }
 
-    suspend fun dispatch(builder: () -> MovieEffect) {
-        val effectValue = builder()
+    suspend fun effect(action: A, effect: () -> E) {
+        val effectValue = reducer.reducer(effect(), action)
         _effect.send(effectValue)
     }
 
