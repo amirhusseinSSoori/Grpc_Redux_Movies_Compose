@@ -1,5 +1,7 @@
 package com.amirhusseinsoori.data.di
 
+import com.amirhusseinsoori.common.Constance.BaseIp
+import com.amirhusseinsoori.common.Constance.BasePort
 import com.amirhusseinsoori.data.network.TimeoutInterceptor
 import dagger.Module
 import dagger.Provides
@@ -33,8 +35,8 @@ object GrpcModule {
     @Provides
     fun provideChannel(): ManagedChannel {
         return ManagedChannelBuilder.forAddress(
-            "192.168.5.31",
-            50051
+            BaseIp,
+            BasePort
         )
             .executor(Executors.newSingleThreadExecutor())
             .usePlaintext()
