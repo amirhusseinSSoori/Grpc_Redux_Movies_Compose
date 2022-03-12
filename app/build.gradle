@@ -38,6 +38,7 @@ dependencies {
 
     with domain
     with data
+    with common
 
 
     implementation androidx.values()

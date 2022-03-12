@@ -1,7 +1,7 @@
-package com.amirhusseinsoori.grpckotlin.ui.redux
+package com.amirhusseinsoori.domain.redux
 
 
-import androidx.lifecycle.viewModelScope
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel

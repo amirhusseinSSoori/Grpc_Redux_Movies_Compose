@@ -1,6 +1,7 @@
-package com.amirhusseinsoori.grpckotlin.ui.redux
+package com.amirhusseinsoori.domain.redux
 
-import android.util.Log
+
+import java.util.logging.Level
 
 
 /**
@@ -9,9 +10,6 @@ import android.util.Log
  */
 class LoggingMiddleware<S : State, E : Effect, A : Action> : Middleware<S, E, A> {
     override suspend fun process(action: A, currentState: S, effect: E, store: Store<S, E, A>) {
-        Log.e(
-            "LoggingMiddleware",
-            "Processing action: $action; Current state: $currentState"
-        )
+        java.util.logging.Logger.getLogger("LoggingMiddleware").log(Level.WARNING, "Processing action: $action; Current state: $currentState")
     }
 }

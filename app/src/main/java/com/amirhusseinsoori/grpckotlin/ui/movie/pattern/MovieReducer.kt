@@ -1,7 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
+import com.amirhusseinsoori.domain.redux.Reducer
 
-import com.amirhusseinsoori.grpckotlin.ui.redux.Reducer
 
 /**
  * This reducer is responsible for handling any [MovieAction], and using that to create

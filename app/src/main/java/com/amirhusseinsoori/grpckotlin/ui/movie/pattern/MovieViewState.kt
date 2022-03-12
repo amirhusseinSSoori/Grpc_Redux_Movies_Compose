@@ -1,7 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
-import com.amirhusseinsoori.grpckotlin.ui.redux.State
+import com.amirhusseinsoori.domain.redux.State
 
 
 /**

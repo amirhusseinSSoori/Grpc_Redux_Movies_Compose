@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
+import com.amirhusseinsoori.common.Constance
+import com.amirhusseinsoori.common.Constance.NoError
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
@@ -38,7 +40,7 @@ fun Movie(viewModel: MovieViewModel) {
     }
     viewModel.viewEffect.collectAsState(initial = MovieEffect()).let {
 
-        if (it.value.messageError != "NoError") {
+        if (it.value.messageError != NoError) {
             Toast.makeText(context, "${it.value.messageError}", Toast.LENGTH_SHORT).show()
         }
 

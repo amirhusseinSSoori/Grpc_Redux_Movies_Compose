@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
-import com.amirhusseinsoori.grpckotlin.ui.redux.Effect
+import com.amirhusseinsoori.domain.redux.Effect
+
 
 data class MovieEffect  (
     val messageError: String = "NoError"

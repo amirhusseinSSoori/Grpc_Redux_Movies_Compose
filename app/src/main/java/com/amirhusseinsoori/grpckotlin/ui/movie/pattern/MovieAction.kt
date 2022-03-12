@@ -1,7 +1,8 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
-import com.amirhusseinsoori.grpckotlin.ui.redux.Action
+import com.amirhusseinsoori.domain.redux.Action
+
 
 /**
  * These are all of the possible actions that can be triggered from the Movie screen.

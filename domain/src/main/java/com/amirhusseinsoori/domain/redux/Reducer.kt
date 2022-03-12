@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.ui.redux
+package com.amirhusseinsoori.domain.redux
 
 interface Reducer<S: State,E:Effect, A: Action> {
 

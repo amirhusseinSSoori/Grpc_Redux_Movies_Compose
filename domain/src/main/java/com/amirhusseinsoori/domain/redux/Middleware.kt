@@ -1,4 +1,4 @@
-package com.amirhusseinsoori.grpckotlin.ui.redux
+package com.amirhusseinsoori.domain.redux
 
 /**
  * A [Middleware] is any class that deals with side effects of actions. This can be logging,

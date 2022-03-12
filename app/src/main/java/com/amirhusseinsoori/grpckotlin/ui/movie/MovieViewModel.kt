@@ -2,15 +2,17 @@ package com.amirhusseinsoori.grpckotlin.ui.movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amirhusseinsoori.common.Constance.NoError
 import com.amirhusseinsoori.domain.exception.LoadingOccurs
 import com.amirhusseinsoori.domain.exception.fold
+import com.amirhusseinsoori.domain.redux.LoggingMiddleware
+import com.amirhusseinsoori.domain.redux.Store
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
-import com.amirhusseinsoori.grpckotlin.ui.redux.LoggingMiddleware
-import com.amirhusseinsoori.grpckotlin.ui.redux.Store
+
 
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -75,7 +77,7 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
                 }, onLoading = { loading ->
                     when (loading) {
                         LoadingOccurs.StartLoading -> {
-                            store.effect(MovieAction.ShowHide("NoError")) { MovieEffect("NoError") }
+                            store.effect(MovieAction.ShowHide(NoError)) { MovieEffect(NoError) }
                             store.dispatch(MovieAction.LoadingStarted)
                         }
                         LoadingOccurs.FinishLoading -> {
