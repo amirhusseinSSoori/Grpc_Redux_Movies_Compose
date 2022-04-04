@@ -21,7 +21,8 @@ ext.grpc_util = [
 ext.compose_mian = [
         ui      : "androidx.compose.ui:ui:${compose_version}",
         material: "androidx.compose.material:material:${compose_version}",
-        preview : "androidx.compose.ui:ui-tooling-preview:${compose_version}"
+        preview : "androidx.compose.ui:ui-tooling-preview:${compose_version}",
+        util    : "androidx.compose.ui:ui-util:${compose_version}"
 ]
 
 ext.compose_util = [
@@ -29,7 +30,12 @@ ext.compose_util = [
         navigation_hilt: "androidx.hilt:hilt-navigation-compose:${compose_navigation_hilt}",
         ui_test        : "androidx.compose.ui:ui-test-junit4:${compose_version}",
         ui_tooling     : "androidx.compose.ui:ui-tooling:${compose_version}"
+]
 
+ext.compose_accompanist = [
+        pager           : "com.google.accompanist:accompanist-pager:$compose_accompanist",
+        insets          : "com.google.accompanist:accompanist-insets:$compose_accompanist",
+        pager_indicators: "com.google.accompanist:accompanist-pager-indicators:$compose_accompanist"
 ]
 
 ext.coroutine = [

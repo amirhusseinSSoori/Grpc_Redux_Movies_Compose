@@ -24,6 +24,7 @@ ext {
     compose_version = "1.1.0"
     compose_activity_version = "1.4.0"
     compose_navigation_hilt="1.0.0"
+    compose_accompanist="0.24.5-alpha"
 
 
     //coroutines
