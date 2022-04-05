@@ -23,7 +23,7 @@ private const val TAG = "ImageLoader"
 fun ImageLoader(
     data: Any?,
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Fit,
 ) {
     when (data) {
         is String -> {

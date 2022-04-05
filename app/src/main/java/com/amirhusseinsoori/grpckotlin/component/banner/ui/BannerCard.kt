@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.amirhusseinsoori.grpckotlin.component.banner.model.BaseBannerBean
+import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.ImageLoader
 
 /**
@@ -21,7 +21,7 @@ import com.amirhusseinsoori.grpckotlin.component.banner.utils.ImageLoader
  * @param onBannerClick Banner
  */
 @Composable
-fun <T : BaseBannerBean> BannerCard(
+fun <T : BannerModel> BannerCard(
     bean: T,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(10.dp),

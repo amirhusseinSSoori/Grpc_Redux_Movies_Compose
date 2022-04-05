@@ -8,11 +8,11 @@ import com.amirhusseinsoori.domain.exception.fold
 import com.amirhusseinsoori.domain.redux.LoggingMiddleware
 import com.amirhusseinsoori.domain.redux.Store
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
+import com.amirhusseinsoori.domain.usecase.ShowListSliderUseCase
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
-
 
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,10 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAllMovieUseCase) :
+class MovieViewModel @Inject constructor(
+    private val showAllMovieUseCase: ShowAllMovieUseCase,
+    private val showListSliderUseCase: ShowListSliderUseCase
+) :
     ViewModel() {
 
     private val store = Store(
@@ -40,7 +43,9 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
 
     init {
         subscribeEvents()
+        handleEvent(MovieAction.DispatchSlider)
         callEvent()
+
     }
 
 
@@ -53,16 +58,18 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
     }
 
 
-
-    fun callEvent(){
-        store.setEvent(MovieAction.StartAll)
+    fun callEvent() {
+        store.setEvent(MovieAction.DispatchMovies)
     }
 
 
     private fun handleEvent(action: MovieAction) {
         when (action) {
-            is MovieAction.StartAll -> {
+            is MovieAction.DispatchMovies -> {
                 showAllMovies()
+            }
+            is MovieAction.DispatchSlider->{
+                showSlider()
             }
         }
     }
@@ -87,6 +94,14 @@ class MovieViewModel @Inject constructor(private val showAllMovieUseCase: ShowAl
                 }) {
                     store.effect(MovieAction.ShowFailed(it.message!!)) { MovieEffect(it.message!!) }
                 }
+            }
+        }
+    }
+
+    private fun showSlider(){
+        viewModelScope.launch {
+            showListSliderUseCase.execute().collect{
+                store.dispatch(MovieAction.ShowSlider(it))
             }
         }
     }

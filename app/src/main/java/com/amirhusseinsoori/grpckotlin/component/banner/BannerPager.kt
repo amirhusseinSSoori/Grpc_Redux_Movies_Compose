@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import com.amirhusseinsoori.grpckotlin.component.banner.model.BaseBannerBean
+import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.grpckotlin.component.banner.ui.BannerCard
 import com.amirhusseinsoori.grpckotlin.component.banner.ui.config.BannerConfig
 import com.google.accompanist.pager.*
@@ -22,16 +22,16 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun <T : BaseBannerBean> BannerPager(
+fun BannerPager(
     modifier: Modifier = Modifier,
-    items: List<T> = arrayListOf(),
+    items: List<BannerModel> = arrayListOf(),
     config: BannerConfig = BannerConfig(),
     indicatorIsVertical: Boolean = false,
     indicatorGravity: Alignment = Alignment.BottomCenter,
-    onBannerClick: (T) -> Unit
+    onBannerClick: (BannerModel) -> Unit
 ) {
     if (items.isEmpty()) {
-        throw NullPointerException("items is not null")
+       return
     }
 
     val pagerState = rememberPagerState()

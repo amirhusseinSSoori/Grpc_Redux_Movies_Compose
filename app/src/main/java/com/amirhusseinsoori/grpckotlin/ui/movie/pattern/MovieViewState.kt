@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.pattern
 
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
+import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.domain.redux.State
 
 
@@ -9,5 +10,6 @@ import com.amirhusseinsoori.domain.redux.State
  */
 data class MovieViewState(
     val listMovies: List<DomainMoviesItem> = emptyList(),
+    val slider:List<BannerModel>? = emptyList(),
     val showProgressBar: Boolean = false,
 ) : State

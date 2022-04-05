@@ -16,6 +16,9 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
      */
     override fun reduce(currentState: MovieViewState, action: MovieAction): MovieViewState {
         return when (action) {
+            is MovieAction.ShowSlider ->{
+                displaySlider(currentState,action)
+            }
             is MovieAction.ShowAllMovie -> {
                 displayMovieList(currentState,action)
             }
@@ -39,6 +42,13 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
             else -> currentEffect
         }
     }
+
+
+    private fun stateLoadSlider(currentState: MovieViewState) =
+        currentState.copy(
+            slider = currentState.slider,
+        )
+
 
 
     private fun stateShowError(currentState: MovieEffect) =
@@ -67,7 +77,14 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
         currentState: MovieViewState,
         action: MovieAction.ShowAllMovie
     ) = currentState.copy(
-        listMovies = action.list,
+        listMovies = action.movies,
+    )
+
+    private fun displaySlider(
+        currentState: MovieViewState,
+        action: MovieAction.ShowSlider
+    ) = currentState.copy(
+        slider = action.sliders,
     )
 
 
