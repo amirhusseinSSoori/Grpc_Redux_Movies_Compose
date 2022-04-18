@@ -8,11 +8,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class BannerConfig(
-    var bannerHeight: Dp = 210.dp,
+    var bannerHeight: Dp = 250.dp,
     var bannerImagePadding: Dp = 8.dp,
     var shape: Shape = RoundedCornerShape(10.dp),
     var intervalTime: Long = 3000,
-    var contentScale: ContentScale = ContentScale.Crop,
+    var contentScale: ContentScale = ContentScale.FillBounds,
     var repeat: Boolean = true,
     var itemSpacing: Dp = 0.dp,
     var contentPadding: PaddingValues = PaddingValues(0.dp),

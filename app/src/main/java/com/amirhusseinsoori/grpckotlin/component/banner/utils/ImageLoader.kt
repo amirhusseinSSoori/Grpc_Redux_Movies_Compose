@@ -1,7 +1,6 @@
 package com.amirhusseinsoori.grpckotlin.component.banner.utils
 
 import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +8,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+
 
 private const val TAG = "ImageLoader"
 
@@ -28,8 +28,8 @@ fun ImageLoader(
     when (data) {
         is String -> {
             val painter = if (data.contains("https://") || data.contains("http://")) {
-                rememberAsyncImagePainter(
-                    model = data,
+                rememberImagePainter(
+                     data,
                 )
             } else {
                 val bitmap = BitmapFactory.decodeFile(data)
@@ -42,6 +42,8 @@ fun ImageLoader(
                 contentScale = contentScale
             )
         }
+
+
         is Int -> {
             Image(
                 modifier = modifier,

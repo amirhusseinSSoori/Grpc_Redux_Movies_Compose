@@ -14,22 +14,24 @@ class SlidersListRepositoryImp @Inject constructor() : SliderListRepository {
     }.flowOn(Dispatchers.IO)
 }
 
+const val urlImages="https://amirhusseinsoori.ir/data/movie/images/"
+
 
 var sliders = arrayListOf(
     BannerModel(
-        "http://amirhusseinsoori.ir/image/banner/john_wick_4.jpeg",
+        urlImages.plus("b_free_guy.jpg"),
         "john Wick 4"
     ),
     BannerModel(
-        "http://amirhusseinsoori.ir/image/banner/free_guy.jpeg",
+        urlImages.plus("b_coda.jpg"),
         "Free Guy"
     ),
     BannerModel(
-        "http://amirhusseinsoori.ir/image/banner/spiderman.jpeg",
+        urlImages.plus("b_spider_man.jpg"),
         "spider man no away home"
     ),
     BannerModel(
-        "http://amirhusseinsoori.ir/image/banner/007.jpeg",
+        urlImages.plus("b_peakyblinders.jpg"),
         "No time to die movie"
     ),
 )

@@ -11,7 +11,8 @@ ext.androidx = [
 ext.grpc = [
         okhttp  : "io.grpc:grpc-okhttp:${grpc_version}",
         protobuf: "io.grpc:grpc-protobuf-lite:${grpc_protobuf_version}",
-        stub    : "io.grpc:grpc-stub:${grpc_version}"
+        stub    : "io.grpc:grpc-stub:${grpc_version}",
+        test  : "io.grpc:grpc-testing:${grpc_version}"
 ]
 ext.grpc_util = [
         annotations: "org.apache.tomcat:annotations-api:6.0.53"

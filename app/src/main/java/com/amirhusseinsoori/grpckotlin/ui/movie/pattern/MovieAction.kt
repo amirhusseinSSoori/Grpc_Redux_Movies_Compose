@@ -10,7 +10,7 @@ import com.amirhusseinsoori.domain.redux.Action
  */
 sealed class MovieAction : Action {
     data class ShowAllMovie(val movies: List<DomainMoviesItem>) : MovieAction()
-    data class ShowSlider(val sliders:List<BannerModel>): MovieAction()
+    data class ShowSlider(val sliders: List<BannerModel>) : MovieAction()
     object LoadingStarted : MovieAction()
     object LoadingFinished : MovieAction()
     data class ShowFailed(val errorMessage: String) : MovieAction()
