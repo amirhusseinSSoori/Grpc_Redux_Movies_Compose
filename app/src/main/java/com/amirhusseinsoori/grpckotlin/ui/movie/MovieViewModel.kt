@@ -77,6 +77,7 @@ class MovieViewModel @Inject constructor(
 
     private fun showAllMovies() {
         viewModelScope.launch {
+
             showAllMovieUseCase.execute().collect() { result ->
                 result.fold(onSuccess = {
                     store.dispatch(MovieAction.ShowAllMovie(it))

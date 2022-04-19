@@ -1,6 +1,5 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.component
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,14 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 
 
 @Composable
-fun ComedyMovieList(movieItems: List<DomainMoviesItem>) {
+fun MovieList(movieItems: List<DomainMoviesItem>,list:List<Color>) {
+    Spacer(modifier = Modifier.height(10.dp))
     Card(
         shape = RoundedCornerShape(corner = CornerSize(10.dp)),
         modifier = Modifier
@@ -38,10 +37,7 @@ fun ComedyMovieList(movieItems: List<DomainMoviesItem>) {
             .background(
                 shape = RoundedCornerShape(corner = CornerSize(10.dp)),
                 brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White,
-                        bCard
-                    )
+                    colors = list
                 )
             )
             .padding(8.dp),
@@ -66,7 +62,7 @@ fun ComedyMovieList(movieItems: List<DomainMoviesItem>) {
         ) {
             LazyRow {
                 items(movieItems) {
-                    ComedyItems(it)
+                    MovieItems(it)
                 }
             }
         }
@@ -75,7 +71,7 @@ fun ComedyMovieList(movieItems: List<DomainMoviesItem>) {
 
 
 @Composable
-fun ComedyItems(movie: DomainMoviesItem) {
+fun MovieItems(movie: DomainMoviesItem) {
     Box(
         modifier = Modifier
             .padding(top = 30.dp, start = 10.dp, bottom = 10.dp)
