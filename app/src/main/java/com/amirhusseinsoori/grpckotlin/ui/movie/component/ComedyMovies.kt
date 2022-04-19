@@ -1,11 +1,14 @@
-package com.example.movieapp.ui.component
+package com.amirhusseinsoori.grpckotlin.ui.movie.component
 
-import android.graphics.Movie
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,8 +29,54 @@ import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 
 
 @Composable
-fun MovieListItem(movie: DomainMoviesItem) {
-    ConstraintLayout(
+fun ComedyMovieList(movieItems: List<DomainMoviesItem>) {
+    Card(
+        shape = RoundedCornerShape(corner = CornerSize(10.dp)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp)
+            .background(
+                shape = RoundedCornerShape(corner = CornerSize(10.dp)),
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White,
+                        bCard
+                    )
+                )
+            )
+            .padding(8.dp),
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 5.dp,
+                    start = 18.dp
+                ),
+            text = "Comedy & Action",
+            style = typography.h6,
+            textAlign = TextAlign.Left,
+            color = Color.Black,
+            fontSize = 18.sp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
+        ) {
+            LazyRow {
+                items(movieItems) {
+                    ComedyItems(it)
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ComedyItems(movie: DomainMoviesItem) {
+    Box(
         modifier = Modifier
             .padding(top = 30.dp, start = 10.dp, bottom = 10.dp)
             .background(
@@ -72,16 +120,19 @@ private fun MovieImage(movie: DomainMoviesItem) {
         rememberImagePainter(data = movie.Picture) {
             crossfade(durationMillis = 1000)
             error(R.drawable.ic_baseline_error_24)
-            placeholder(R.drawable.ic_placeholder)
         }
     Image(
         painter = painter,
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier
-            .padding(10.dp)
+            .padding(
+                start = 10.dp,
+                top = 10.dp,
+                end = 10.dp,
+                bottom = 10.dp)
             .size(150.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
+            .clip(RoundedCornerShape(corner = CornerSize(40.dp)))
     )
 }
 
