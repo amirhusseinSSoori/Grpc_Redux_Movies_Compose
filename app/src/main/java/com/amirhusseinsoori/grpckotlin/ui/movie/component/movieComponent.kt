@@ -25,7 +25,8 @@ import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 @Composable
 fun MovieDetails(
     itemsBanner: List<BannerModel>?,
-    movieItems: List<DomainMoviesItem>,
+    famousItems: List<DomainMoviesItem>,
+    comedyItems:List<DomainMoviesItem>
 ) {
     Column(
         modifier = Modifier
@@ -35,14 +36,14 @@ fun MovieDetails(
     ) {
         Banner(itemsBanner)
         MovieList(
-            movieItems, ProvideGradiant.PurpleAndWhite.list
+            comedyItems, ProvideGradiant.PurpleAndWhite.list
         )
         MovieList(
-            movieItems,
+            comedyItems,
             ProvideGradiant.WhiteAndWhite.list
         )
         MovieList(
-            movieItems,
+            famousItems,
             ProvideGradiant.WhiteAndPurple.list
 
         )

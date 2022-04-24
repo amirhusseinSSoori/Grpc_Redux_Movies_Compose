@@ -8,7 +8,7 @@ import io.grpc.movienode.VideoListXRequest
 import javax.inject.Inject
 
 class MovieRemoteSourceImp @Inject constructor(var grpcService: BodyGrpc.BodyBlockingStub) :MovieRemoteSource {
-    override fun getAllMovie(): VideoListXReply {
-        return grpcService.getVideosX(VideoListXRequest.newBuilder().setFilter("ListVideos3").build())
+    override fun getAllMovie(type:String): VideoListXReply {
+        return grpcService.getVideosX(VideoListXRequest.newBuilder().setFilter(type).build())
     }
 }

@@ -5,5 +5,5 @@ import com.amirhusseinsoori.domain.exception.GrpcResult
 import kotlinx.coroutines.flow.Flow
 
 interface MovieListRepository {
-    fun getAllMovies(): Flow<GrpcResult<List<DomainMoviesItem>>>
+    fun getAllMovies(type:String): Flow<List<DomainMoviesItem>>
 }

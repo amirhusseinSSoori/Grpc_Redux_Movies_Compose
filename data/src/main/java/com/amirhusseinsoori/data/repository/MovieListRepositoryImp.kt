@@ -16,10 +16,8 @@ import javax.inject.Inject
 
 class MovieListRepositoryImp @Inject constructor(var local: MovieRemoteSource) :
     MovieListRepository {
-    override fun getAllMovies(): Flow<GrpcResult<List<DomainMoviesItem>>> =
-        flow<GrpcResult<List<DomainMoviesItem>>> {
-            emit(GrpcResult.success(local.getAllMovie().videoListXList.moviesMapToDomain()))
-        }.catch { ex ->
-            emit(GrpcResult.failure(ex))
+    override fun getAllMovies(type:String): Flow<List<DomainMoviesItem>> =
+        flow<List<DomainMoviesItem>> {
+            emit(local.getAllMovie(type).videoListXList.moviesMapToDomain())
         }.flowOn(Dispatchers.IO)
 }

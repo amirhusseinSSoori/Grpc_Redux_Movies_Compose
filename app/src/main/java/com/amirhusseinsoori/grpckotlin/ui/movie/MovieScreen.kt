@@ -22,9 +22,9 @@ fun Movie(viewModel: MovieViewModel) {
             title = { Text(text = "Movie with Grpc") }
         )
     }) {
-        viewModel.viewState.collectAsState(initial = MovieViewState()).let {rsualt ->
-            rsualt.value.apply {
-                MovieDetails(slider,listMovies)
+        viewModel.viewState.collectAsState(initial = MovieViewState()).let {result ->
+            result.value.apply {
+                MovieDetails(slider,listFamous,listComedy)
             }
         }
         viewModel.viewEffect.collectAsState(initial = MovieEffect()).let {

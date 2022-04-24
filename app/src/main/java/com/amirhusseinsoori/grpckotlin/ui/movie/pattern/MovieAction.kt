@@ -9,7 +9,8 @@ import com.amirhusseinsoori.domain.redux.Action
  * These are all of the possible actions that can be triggered from the Movie screen.
  */
 sealed class MovieAction : Action {
-    data class ShowAllMovie(val movies: List<DomainMoviesItem>) : MovieAction()
+    data class ShowFamousMovie(val movies: List<DomainMoviesItem>) : MovieAction()
+    data class ShowComedyMovie(val movies: List<DomainMoviesItem>) : MovieAction()
     data class ShowSlider(val sliders: List<BannerModel>) : MovieAction()
     object LoadingStarted : MovieAction()
     object LoadingFinished : MovieAction()

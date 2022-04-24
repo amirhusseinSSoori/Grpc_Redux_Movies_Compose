@@ -22,8 +22,8 @@ class ShowAllMovieUseCaseTest {
     fun getShowAllMovie() {
         runBlocking {
             launch {
-                useCase.execute()
-                Mockito.verify(mockRepository).getAllMovies()
+                useCase.execute("ListVideos3")
+                Mockito.verify(mockRepository).getAllMovies("ListVideos3")
                 this.cancel()
             }
             return@runBlocking

@@ -16,11 +16,14 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
      */
     override fun reduce(currentState: MovieViewState, action: MovieAction): MovieViewState {
         return when (action) {
-            is MovieAction.ShowSlider ->{
-                displaySlider(currentState,action)
+            is MovieAction.ShowSlider -> {
+                displaySlider(currentState, action)
             }
-            is MovieAction.ShowAllMovie -> {
-                displayMovieList(currentState,action)
+            is MovieAction.ShowFamousMovie -> {
+                displayMovieFamousList(currentState, action)
+            }
+            is MovieAction.ShowComedyMovie -> {
+                displayComedyList(currentState, action)
             }
             is MovieAction.LoadingStarted -> {
                 stateAfterLoadingStarted(currentState)
@@ -31,6 +34,7 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
             else -> currentState
         }
     }
+
     override fun reducer(currentEffect: MovieEffect, action: MovieAction): MovieEffect {
         return when (action) {
             is MovieAction.ShowFailed -> {
@@ -50,15 +54,14 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
         )
 
 
-
     private fun stateShowError(currentState: MovieEffect) =
         currentState.copy(
-            messageError =currentState.messageError,
+            messageError = currentState.messageError,
         )
 
     private fun stateHideError(currentState: MovieEffect) =
         currentState.copy(
-            messageError ="NoError",
+            messageError = "NoError",
         )
 
     private fun stateAfterLoadingStarted(currentState: MovieViewState) =
@@ -71,13 +74,18 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
             showProgressBar = false,
         )
 
-
-
-    private fun displayMovieList(
+    private fun displayComedyList(
         currentState: MovieViewState,
-        action: MovieAction.ShowAllMovie
+        action: MovieAction.ShowComedyMovie
     ) = currentState.copy(
-        listMovies = action.movies,
+        listComedy = action.movies,
+    )
+
+    private fun displayMovieFamousList(
+        currentState: MovieViewState,
+        action: MovieAction.ShowFamousMovie
+    ) = currentState.copy(
+        listFamous = action.movies,
     )
 
     private fun displaySlider(
@@ -86,7 +94,6 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
     ) = currentState.copy(
         slider = action.sliders,
     )
-
 
 
 }

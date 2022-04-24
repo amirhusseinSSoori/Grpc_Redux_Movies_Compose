@@ -1,5 +1,6 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.common.Constance.NoError
@@ -16,8 +17,8 @@ import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,6 +41,7 @@ class MovieViewModel @Inject constructor(
     )
     val viewState: StateFlow<MovieViewState> = store.state
     val viewEffect: Flow<MovieEffect> = store.effect
+
 
     init {
         subscribeEvents()
@@ -68,40 +70,37 @@ class MovieViewModel @Inject constructor(
             is MovieAction.DispatchMovies -> {
                 showAllMovies()
             }
-            is MovieAction.DispatchSlider->{
+            is MovieAction.DispatchSlider -> {
                 showSlider()
             }
         }
     }
 
 
+    @OptIn(FlowPreview::class)
     private fun showAllMovies() {
         viewModelScope.launch {
+            combine(
+                showAllMovieUseCase.execute("ListVideos1"),
+                showAllMovieUseCase.execute("ListVideos2"),
+                showAllMovieUseCase.execute("ListVideos3")
+            ) { a, b,c ->
+                store.dispatch(MovieAction.ShowComedyMovie(a))
+                store.dispatch(MovieAction.ShowFamousMovie(b))
+            }.catch {
+                store.effect(MovieAction.ShowFailed(it.message!!)) { MovieEffect(it.message!!) }
+            }.onStart {
+                store.dispatch(MovieAction.LoadingStarted)
+            }.onCompletion {
+                store.dispatch(MovieAction.LoadingFinished)
+            }.collect()
 
-            showAllMovieUseCase.execute().collect() { result ->
-                result.fold(onSuccess = {
-                    store.dispatch(MovieAction.ShowAllMovie(it))
-
-                }, onLoading = { loading ->
-                    when (loading) {
-                        LoadingOccurs.StartLoading -> {
-                            store.effect(MovieAction.ShowHide(NoError)) { MovieEffect(NoError) }
-                            store.dispatch(MovieAction.LoadingStarted)
-                        }
-                        LoadingOccurs.FinishLoading -> {
-                            store.dispatch(MovieAction.LoadingFinished)
-                        }
-                    }
-                }) {
-                    store.effect(MovieAction.ShowFailed(it.message!!)) { MovieEffect(it.message!!) }
-                }
-            }
         }
     }
 
-    private fun showSlider(){
+    private fun showSlider() {
         viewModelScope.launch {
-            showListSliderUseCase.execute().collect{
+            showListSliderUseCase.execute().collect {
                 store.dispatch(MovieAction.ShowSlider(it))
             }
         }
