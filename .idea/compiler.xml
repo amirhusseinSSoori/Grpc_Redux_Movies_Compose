@@ -5,6 +5,8 @@
       <module name="GrpcKotlin.app" target="11" />
       <module name="GrpcKotlin.data" target="11" />
       <module name="GrpcKotlin.domain" target="1.8" />
+      <module name="GrpcKotlin.domain.main" target="1.8" />
+      <module name="GrpcKotlin.domain.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

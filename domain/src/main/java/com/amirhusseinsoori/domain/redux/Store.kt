@@ -53,8 +53,8 @@ class Store<S : State, E : Effect, A : Action>(
 
     }
 
-    suspend fun effect(action: A, effect: () -> E) {
-        val effectValue = reducer.reducer(effect(), action)
+    suspend fun effect(action: A) {
+        val effectValue = reducer.reducer(initialEffect, action)
         _effect.send(effectValue)
     }
 

@@ -19,15 +19,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
 import androidx.compose.ui.unit.sp
-import com.amirhusseinsoori.grpckotlin.R
+import coil.compose.rememberImagePainter
+import coil.size.OriginalSize
+import coil.size.PixelSize
+import coil.size.Scale
+import coil.transform.RoundedCornersTransformation
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
+import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 
 
 @Composable
-fun MovieList(movieItems: List<DomainMoviesItem>,list:List<Color>) {
+fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color>) {
     Spacer(modifier = Modifier.height(10.dp))
     Card(
         shape = RoundedCornerShape(corner = CornerSize(10.dp)),
@@ -49,7 +53,7 @@ fun MovieList(movieItems: List<DomainMoviesItem>,list:List<Color>) {
                     top = 5.dp,
                     start = 18.dp
                 ),
-            text = "Comedy & Action",
+            text = type,
             style = typography.h6,
             textAlign = TextAlign.Left,
             color = Color.Black,
@@ -113,20 +117,26 @@ fun MovieItems(movie: DomainMoviesItem) {
 @Composable
 private fun MovieImage(movie: DomainMoviesItem) {
     val painter =
-        rememberImagePainter(data = movie.Picture) {
-            crossfade(durationMillis = 1000)
-            error(R.drawable.ic_baseline_error_24)
-        }
+        rememberImagePainter(data = movie.Picture, builder = {
+            size(OriginalSize)
+            placeholder(R.drawable.ic_placeholder)
+            error(R.drawable.ic_placeholder)
+            crossfade(1000)
+//            transformations(CircleCropTransformation(),BlurTransformation(LocalContext.current))
+           transformations(RoundedCornersTransformation(50f))
+        })
+
     Image(
         painter = painter,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier
+        modifier = Modifier.fillMaxWidth()
             .padding(
                 start = 10.dp,
                 top = 10.dp,
                 end = 10.dp,
-                bottom = 10.dp)
+                bottom = 10.dp
+            )
             .size(150.dp)
             .clip(RoundedCornerShape(corner = CornerSize(40.dp)))
     )

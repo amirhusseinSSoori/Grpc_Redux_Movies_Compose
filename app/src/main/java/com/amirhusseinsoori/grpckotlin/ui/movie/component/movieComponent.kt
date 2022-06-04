@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie.component
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -26,23 +27,28 @@ import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 fun MovieDetails(
     itemsBanner: List<BannerModel>?,
     famousItems: List<DomainMoviesItem>,
+    serialsItems:List<DomainMoviesItem>,
     comedyItems:List<DomainMoviesItem>
 ) {
     Column(
         modifier = Modifier
             .verticalScroll(
-                state = rememberScrollState())
+                state = rememberScrollState()
+            )
             .padding(10.dp)
     ) {
         Banner(itemsBanner)
-        MovieList(
+        MovieList("Comedy & Action",
             comedyItems, ProvideGradiant.PurpleAndWhite.list
         )
         MovieList(
-            comedyItems,
+            "Serials",
+            serialsItems,
             ProvideGradiant.WhiteAndWhite.list
         )
+        Log.e("MovieDetails", "MovieDetails:${famousItems} ", )
         MovieList(
+            "Popular",
             famousItems,
             ProvideGradiant.WhiteAndPurple.list
 

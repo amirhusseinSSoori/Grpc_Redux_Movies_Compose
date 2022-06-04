@@ -1,11 +1,10 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie
 
-import android.util.Log
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amirhusseinsoori.common.Constance.NoError
-import com.amirhusseinsoori.domain.exception.LoadingOccurs
-import com.amirhusseinsoori.domain.exception.fold
+import com.amirhusseinsoori.common.MovieTypes
+import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.redux.LoggingMiddleware
 import com.amirhusseinsoori.domain.redux.Store
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
@@ -14,12 +13,8 @@ import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
-
-
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
-
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,10 +39,10 @@ class MovieViewModel @Inject constructor(
 
 
     init {
-        subscribeEvents()
-        handleEvent(MovieAction.DispatchSlider)
-        callEvent()
-
+        viewModelScope.launch {
+            subscribeEvents()
+            callEvent()
+        }
     }
 
 
@@ -61,42 +56,60 @@ class MovieViewModel @Inject constructor(
 
 
     fun callEvent() {
-        store.setEvent(MovieAction.DispatchMovies)
+        store.setEvent(MovieAction.Dispatcher)
     }
 
-
-    private fun handleEvent(action: MovieAction) {
+    private suspend fun handleEvent(action: MovieAction) {
         when (action) {
-            is MovieAction.DispatchMovies -> {
+            MovieAction.Dispatcher -> {
                 showAllMovies()
-            }
-            is MovieAction.DispatchSlider -> {
                 showSlider()
+            }
+            is MovieAction.ShowDialog -> {
+                store.effect(MovieAction.ShowDialog(message = action.message ?: ""))
+            }
+
+            is MovieAction.HideLoading -> {
+                store.effect(MovieAction.HideLoading)
+
+            }
+            is MovieAction.ShowLoading -> {
+                store.effect(MovieAction.ShowLoading)
             }
         }
     }
 
 
-    @OptIn(FlowPreview::class)
     private fun showAllMovies() {
         viewModelScope.launch {
             combine(
-                showAllMovieUseCase.execute("ListVideos1"),
-                showAllMovieUseCase.execute("ListVideos2"),
-                showAllMovieUseCase.execute("ListVideos3")
-            ) { a, b,c ->
-                store.dispatch(MovieAction.ShowComedyMovie(a))
-                store.dispatch(MovieAction.ShowFamousMovie(b))
-            }.catch {
-                store.effect(MovieAction.ShowFailed(it.message!!)) { MovieEffect(it.message!!) }
+                showAllMovieUseCase.execute(MovieTypes.ComedyType.type),
+                showAllMovieUseCase.execute(MovieTypes.SerialsType.type),
+                showAllMovieUseCase.execute(MovieTypes.PopularType.type),
+            ) { comedy, serials, famous ->
+                MainSate(comedy, serials, famous)
             }.onStart {
-                store.dispatch(MovieAction.LoadingStarted)
+                store.effect(MovieAction.ShowLoading)
+            }.catch {
+                store.setEvent(MovieAction.HideLoading)
+                store.dispatch(MovieAction.ShowDialog(message = it.message ?: ""))
             }.onCompletion {
-                store.dispatch(MovieAction.LoadingFinished)
-            }.collect()
-
+                store.setEvent(MovieAction.HideLoading)
+            }.collect() {
+                store.dispatch(MovieAction.HideDialog)
+                store.dispatch(MovieAction.ShowComedyMovie(it.comedy))
+                store.dispatch(MovieAction.ShowSerials(it.serials))
+                store.dispatch(MovieAction.ShowFamousMovie(it.famous))
+            }
         }
     }
+
+    data class MainSate(
+        val comedy: List<DomainMoviesItem>,
+        val serials: List<DomainMoviesItem>,
+        val famous: List<DomainMoviesItem>,
+    )
+
 
     private fun showSlider() {
         viewModelScope.launch {

@@ -25,11 +25,14 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
             is MovieAction.ShowComedyMovie -> {
                 displayComedyList(currentState, action)
             }
-            is MovieAction.LoadingStarted -> {
-                stateAfterLoadingStarted(currentState)
+            is MovieAction.ShowSerials -> {
+                displaySerialsList(currentState, action)
             }
-            MovieAction.LoadingFinished -> {
-                stateAfterLoadingCompleted(currentState)
+            is MovieAction.ShowDialog -> {
+                showDialog(currentState, message = action.message)
+            }
+            is MovieAction.HideDialog -> {
+                hideDialog(currentState)
             }
             else -> currentState
         }
@@ -37,48 +40,56 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
 
     override fun reducer(currentEffect: MovieEffect, action: MovieAction): MovieEffect {
         return when (action) {
-            is MovieAction.ShowFailed -> {
-                stateShowError(currentEffect)
+//            is MovieAction.ShowErrorDialog -> {
+//                stateShowError(currentEffect, message = action.message)
+//            }
+            MovieAction.ShowLoading -> {
+                stateShowLoading(currentEffect)
             }
-            is MovieAction.ShowHide -> {
-                stateHideError(currentEffect)
+            MovieAction.HideLoading -> {
+                stateHideLoading(currentEffect)
             }
+
             else -> currentEffect
         }
     }
 
-
-    private fun stateLoadSlider(currentState: MovieViewState) =
+    private fun showDialog(currentState: MovieViewState, message: String) =
         currentState.copy(
-            slider = currentState.slider,
+            DiaLog = true,
+            message = message
+        )
+
+    private fun hideDialog(currentState: MovieViewState) =
+        currentState.copy(
+            DiaLog = false,
         )
 
 
-    private fun stateShowError(currentState: MovieEffect) =
+    private fun stateShowLoading(currentState: MovieEffect) =
         currentState.copy(
-            messageError = currentState.messageError,
+            showProgressBar = true
         )
 
-    private fun stateHideError(currentState: MovieEffect) =
-        currentState.copy(
-            messageError = "NoError",
+
+    private fun stateHideLoading(currentEffect: MovieEffect) =
+        currentEffect.copy(
+            showProgressBar = false
         )
 
-    private fun stateAfterLoadingStarted(currentState: MovieViewState) =
-        currentState.copy(
-            showProgressBar = true,
-        )
-
-    private fun stateAfterLoadingCompleted(currentState: MovieViewState) =
-        currentState.copy(
-            showProgressBar = false,
-        )
 
     private fun displayComedyList(
         currentState: MovieViewState,
         action: MovieAction.ShowComedyMovie
     ) = currentState.copy(
         listComedy = action.movies,
+    )
+
+    private fun displaySerialsList(
+        currentState: MovieViewState,
+        action: MovieAction.ShowSerials
+    ) = currentState.copy(
+        listSerials = action.movies,
     )
 
     private fun displayMovieFamousList(

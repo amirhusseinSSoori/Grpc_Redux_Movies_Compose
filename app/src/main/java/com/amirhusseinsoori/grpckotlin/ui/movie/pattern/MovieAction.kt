@@ -11,11 +11,18 @@ import com.amirhusseinsoori.domain.redux.Action
 sealed class MovieAction : Action {
     data class ShowFamousMovie(val movies: List<DomainMoviesItem>) : MovieAction()
     data class ShowComedyMovie(val movies: List<DomainMoviesItem>) : MovieAction()
+    data class ShowSerials(val movies: List<DomainMoviesItem>) : MovieAction()
     data class ShowSlider(val sliders: List<BannerModel>) : MovieAction()
-    object LoadingStarted : MovieAction()
-    object LoadingFinished : MovieAction()
-    data class ShowFailed(val errorMessage: String) : MovieAction()
-    data class ShowHide(val errorMessage: String) : MovieAction()
-    object DispatchMovies : MovieAction()
-    object DispatchSlider : MovieAction()
+
+    data class ShowDialog(val message:String) : MovieAction()
+    object HideDialog : MovieAction()
+    object ShowLoading : MovieAction()
+    object HideLoading : MovieAction()
+
+
+
+
+
+
+    object Dispatcher : MovieAction()
 }

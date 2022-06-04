@@ -11,6 +11,8 @@ import com.amirhusseinsoori.domain.redux.State
 data class MovieViewState(
     val listFamous: List<DomainMoviesItem> = emptyList(),
     val listComedy: List<DomainMoviesItem> = emptyList(),
-    val slider:List<BannerModel>? = emptyList(),
-    val showProgressBar: Boolean = false,
+    val listSerials: List<DomainMoviesItem> = emptyList(),
+    val slider: List<BannerModel>? = emptyList(),
+    val DiaLog: Boolean = false,
+    val message: String = ""
 ) : State
