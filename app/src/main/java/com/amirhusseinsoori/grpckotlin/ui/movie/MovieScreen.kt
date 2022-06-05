@@ -19,47 +19,27 @@ import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 @SuppressLint("RememberReturnType")
 @Composable
 fun Movie(viewModel: MovieViewModel) {
-    val context = LocalContext.current
-    var processErrorDialog by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var messageErrorDialog by rememberSaveable {
-        mutableStateOf("")
-    }
-    var loading by rememberSaveable {
-        mutableStateOf(false)
-    }
     Scaffold(topBar = {
         TopAppBar(
             title = { Text(text = "Movie with Grpc") }
         )
     }) {
-
         viewModel.viewState.collectAsState(initial = MovieViewState()).let { result ->
             result.value.apply {
                 if (slider!!.isNotEmpty()) {
                     MovieDetails(slider, listFamous, listSerials, listComedy)
                 }
-                processErrorDialog=DiaLog
-                messageErrorDialog=message
-                Log.e("slider", "Movie:${listFamous} ")
+                ShowErrorDialog(showDialog = DiaLog, message, callEvent = {
+                    viewModel.callEvent()
+                })
             }
         }
-
-
         viewModel.viewEffect.collectAsState(initial = MovieEffect()).let {
             it.value.apply {
-
-                loading = showProgressBar
-
+                ShowLoading(showProgressBar)
             }
         }
 
-
-        ShowErrorDialog(showDialog = processErrorDialog, messageErrorDialog, callEvent = {
-            viewModel.callEvent()
-        })
-        ShowLoading(loading)
     }
 
 
