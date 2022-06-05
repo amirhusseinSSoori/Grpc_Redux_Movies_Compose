@@ -76,15 +76,14 @@ fun ShowErrorDialog(showDialog: Boolean, type: String, callEvent: () -> Unit) {
             DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
         ) {
             Column(
-                modifier = Modifier
-                    .background(White, shape = RoundedCornerShape(10.dp)),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxWidth()
+                    .background(White, shape = RoundedCornerShape(10.dp))
             ) {
                 Text(
                     text = "Error Message",
                     textAlign = TextAlign.Center,
                     fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 5.dp)
+                    modifier = Modifier.padding(top = 5.dp).fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Divider(
@@ -95,7 +94,7 @@ fun ShowErrorDialog(showDialog: Boolean, type: String, callEvent: () -> Unit) {
                 )
                 Text(
                     text = type,
-                    Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
+                    Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp).fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(5.dp))

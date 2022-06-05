@@ -4,6 +4,7 @@ package com.amirhusseinsoori.grpckotlin.ui.movie
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.common.MovieTypes
+import com.amirhusseinsoori.common.showMessage
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.redux.LoggingMiddleware
 import com.amirhusseinsoori.domain.redux.Store
@@ -14,6 +15,7 @@ import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +25,8 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(
     private val showAllMovieUseCase: ShowAllMovieUseCase,
     private val showListSliderUseCase: ShowListSliderUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
+
 
     private val store = Store(
         initialState = MovieViewState(),
@@ -37,48 +39,14 @@ class MovieViewModel @Inject constructor(
     val viewState: StateFlow<MovieViewState> = store.state
     val viewEffect: Flow<MovieEffect> = store.effect
 
-
     init {
-        viewModelScope.launch {
-            subscribeEvents()
-            callEvent()
-        }
+        callEvent()
     }
-
-
-    private fun subscribeEvents() {
-        viewModelScope.launch {
-            store.event.collect { event ->
-                handleEvent(event)
-            }
-        }
-    }
-
 
     fun callEvent() {
-        store.setEvent(MovieAction.Dispatcher)
+        showAllMovies()
+        showSlider()
     }
-
-    private suspend fun handleEvent(action: MovieAction) {
-        when (action) {
-            MovieAction.Dispatcher -> {
-                showAllMovies()
-                showSlider()
-            }
-            is MovieAction.ShowDialog -> {
-                store.effect(MovieAction.ShowDialog(message = action.message ?: ""))
-            }
-
-            is MovieAction.HideLoading -> {
-                store.effect(MovieAction.HideLoading)
-
-            }
-            is MovieAction.ShowLoading -> {
-                store.effect(MovieAction.ShowLoading)
-            }
-        }
-    }
-
 
     private fun showAllMovies() {
         viewModelScope.launch {
@@ -91,16 +59,17 @@ class MovieViewModel @Inject constructor(
             }.onStart {
                 store.effect(MovieAction.ShowLoading)
             }.catch {
-                store.setEvent(MovieAction.HideLoading)
-                store.dispatch(MovieAction.ShowDialog(message = it.message ?: ""))
+                store.dispatch(MovieAction.HideLoading)
+                store.dispatch(MovieAction.ShowDialog(message = it.message!!.showMessage()))
             }.onCompletion {
-                store.setEvent(MovieAction.HideLoading)
-            }.collect() {
-                store.dispatch(MovieAction.HideDialog)
-                store.dispatch(MovieAction.ShowComedyMovie(it.comedy))
-                store.dispatch(MovieAction.ShowSerials(it.serials))
-                store.dispatch(MovieAction.ShowFamousMovie(it.famous))
-            }
+                store.effect(MovieAction.HideLoading)
+            }.flowOn(Dispatchers.IO)
+                .collect() {
+                    store.dispatch(MovieAction.HideDialog)
+                    store.dispatch(MovieAction.ShowComedyMovie(it.comedy))
+                    store.dispatch(MovieAction.ShowSerials(it.serials))
+                    store.dispatch(MovieAction.ShowFamousMovie(it.famous))
+                }
         }
     }
 

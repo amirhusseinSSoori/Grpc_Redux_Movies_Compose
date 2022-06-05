@@ -16,13 +16,7 @@ sealed class MovieAction : Action {
 
     data class ShowDialog(val message:String) : MovieAction()
     object HideDialog : MovieAction()
+
     object ShowLoading : MovieAction()
     object HideLoading : MovieAction()
-
-
-
-
-
-
-    object Dispatcher : MovieAction()
 }

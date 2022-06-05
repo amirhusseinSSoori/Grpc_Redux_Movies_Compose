@@ -1,12 +1,10 @@
 package com.amirhusseinsoori.domain.redux
 
 
-
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 /**
  * A [Store] is our state container for a given screen.
@@ -34,14 +32,14 @@ class Store<S : State, E : Effect, A : Action>(
     private val _effect: Channel<E> = Channel()
     val effect = _effect.receiveAsFlow()
 
-    private val _event : MutableSharedFlow<A> = MutableSharedFlow()
-    val event = _event.asSharedFlow()
-
-
-    fun setEvent(event : A) {
-        val newEvent = event
-        CoroutineScope(Dispatchers.IO).launch { _event.emit(newEvent) }
-    }
+//    private val _event : MutableSharedFlow<A> = MutableSharedFlow()
+//    val event = _event.asSharedFlow()
+//
+//
+//    fun setEvent(event : A) {
+//        val newEvent = event
+//        CoroutineScope(Dispatchers.IO).launch { _event.emit(newEvent) }
+//    }
 
     suspend fun dispatch(action: A) {
         middlewares.forEach { middleware ->
@@ -52,6 +50,7 @@ class Store<S : State, E : Effect, A : Action>(
         _state.value = newState
 
     }
+
 
     suspend fun effect(action: A) {
         val effectValue = reducer.reducer(initialEffect, action)
