@@ -6,12 +6,13 @@ import com.amirhusseinsoori.domain.exception.GrpcResult
 import com.amirhusseinsoori.domain.repository.MovieListRepository
 import com.amirhusseinsoori.domain.repository.SliderListRepository
 import com.amirhusseinsoori.domain.usecase.base.UseCaseImmediate
+import com.amirhusseinsoori.domain.usecase.base.UseCaseWithParamsImmediate
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ShowListSliderUseCase @Inject constructor(private val repository: SliderListRepository) :
-    UseCaseImmediate<Flow<List<BannerModel>>>(){
-    override suspend fun buildUseCaseImmediate(): Flow<List<BannerModel>> {
-        return repository.getBannerListMovies()
+    UseCaseWithParamsImmediate<String, Flow<List<BannerModel>>>() {
+    override suspend fun buildUseCaseImmediate(params: String): Flow<List<BannerModel>> {
+        return repository.getBannerListMovies(params)
     }
 }

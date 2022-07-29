@@ -74,7 +74,7 @@ fun Banner(
             items = slider ?: emptyList(),
             indicatorGravity = Alignment.BottomCenter
         ) { item ->
-            Toast.makeText(context, "${item.name}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${item.Name}", Toast.LENGTH_SHORT).show()
         }
     }
 }

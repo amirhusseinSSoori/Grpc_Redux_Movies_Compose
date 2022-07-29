@@ -28,7 +28,7 @@ fun <T : BannerModel> BannerCard(
     contentScale: ContentScale,
     onBannerClick: () -> Unit,
 ) {
-    if (bean.data == null) {
+    if (bean.Picture == null) {
         throw NullPointerException("Url or imgRes or filePath must have a not for empty.")
     }
 
@@ -37,6 +37,6 @@ fun <T : BannerModel> BannerCard(
         modifier = modifier
     ) {
         val imgModifier = Modifier.clickable(onClick = onBannerClick)
-        ImageLoader(bean.data, imgModifier, contentScale)
+        ImageLoader(bean.Picture, imgModifier, contentScale)
     }
 }

@@ -4,5 +4,5 @@ import com.amirhusseinsoori.domain.entity.model.BannerModel
 import kotlinx.coroutines.flow.Flow
 
 interface SliderListRepository  {
-    fun getBannerListMovies():Flow<List<BannerModel>>
+    fun getBannerListMovies(type:String):Flow<List<BannerModel>>
 }

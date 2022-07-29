@@ -2,6 +2,8 @@ package com.amirhusseinsoori.data.di
 
 import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
 import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSourceImp
+import com.amirhusseinsoori.data.dataSource.slider.HeaderListSource
+import com.amirhusseinsoori.data.dataSource.slider.HeaderListSourceImp
 import com.amirhusseinsoori.data.repository.MovieListRepositoryImp
 import com.amirhusseinsoori.domain.repository.MovieListRepository
 import dagger.Binds
@@ -14,4 +16,8 @@ import dagger.hilt.components.SingletonComponent
 abstract class RemoteSourceModule {
     @Binds
     abstract fun bindRemoteSource(movieRemoteSourceImp: MovieRemoteSourceImp): MovieRemoteSource
+
+
+    @Binds
+    abstract fun bindRemoteSliderSource(headerListSourceImp: HeaderListSourceImp): HeaderListSource
 }

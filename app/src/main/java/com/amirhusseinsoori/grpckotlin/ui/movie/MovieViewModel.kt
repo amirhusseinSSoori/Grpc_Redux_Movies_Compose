@@ -45,7 +45,7 @@ class MovieViewModel @Inject constructor(
 
     fun callEvent() {
         showAllMovies()
-        showSlider()
+        showSlider("")
     }
 
     private fun showAllMovies() {
@@ -80,9 +80,9 @@ class MovieViewModel @Inject constructor(
     )
 
 
-    private fun showSlider() {
+    private fun showSlider(type:String) {
         viewModelScope.launch {
-            showListSliderUseCase.execute().collect {
+            showListSliderUseCase.execute(type).collect {
                 store.dispatch(MovieAction.ShowSlider(it))
             }
         }

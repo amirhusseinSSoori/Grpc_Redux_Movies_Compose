@@ -9,20 +9,11 @@ package ServerBody;
 
 
 service Body {
-  rpc GetVideos (VideoRequest) returns (VideoReply) {}
   rpc GetVideosX (VideoListXRequest) returns (VideoListXReply) {}
-}
+  rpc SearchVideosX (VideoListXRequest) returns (VideoListXReply) {}
 
-
-// The request message containing raw String
-message VideoRequest {
-  string filter = 1;
+  rpc GetHeadersX (VideoHeaderXRequest) returns (VideoHeaderXReply) {}
 }
-// The response message containing the Json
-message VideoReply {
-  string json = 1;
-}
-
 
 
 message VideoListXRequest {
@@ -36,5 +27,21 @@ message VideoListXModel {
   string Name = 2;
   string Description = 3;
   string Picture = 4;
-  int32  Views = 5;
+  string Category = 5;
+  int32  Views = 6;
+}
+
+
+message VideoHeaderXRequest {
+  string filter = 1;
+}
+message VideoHeaderXReply {
+  repeated VideoHeaderXModel VideoHeaderX = 1;
+}
+message VideoHeaderXModel {
+  int32  ID = 1;
+  int32  ID_VIDEO = 2;
+  string Name = 3;
+  string Description = 4;
+  string Picture = 5;
 }
