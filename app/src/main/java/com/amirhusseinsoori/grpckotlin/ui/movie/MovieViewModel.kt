@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.common.MovieTypes
 import com.amirhusseinsoori.common.showMessage
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
+import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.domain.redux.LoggingMiddleware
 import com.amirhusseinsoori.domain.redux.Store
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
@@ -45,17 +46,17 @@ class MovieViewModel @Inject constructor(
 
     fun callEvent() {
         showAllMovies()
-        showSlider("")
     }
 
     private fun showAllMovies() {
         viewModelScope.launch {
             combine(
+                showListSliderUseCase.execute(""),
                 showAllMovieUseCase.execute(MovieTypes.ComedyType.type),
                 showAllMovieUseCase.execute(MovieTypes.SerialsType.type),
                 showAllMovieUseCase.execute(MovieTypes.PopularType.type),
-            ) { comedy, serials, famous ->
-                MainSate(comedy, serials, famous)
+            ) { banner, comedy, serials, famous ->
+                MainSate(banner, comedy, serials, famous)
             }.onStart {
                 store.effect(MovieAction.ShowLoading)
             }.catch {
@@ -66,6 +67,7 @@ class MovieViewModel @Inject constructor(
             }.flowOn(Dispatchers.IO)
                 .collect() {
                     store.dispatch(MovieAction.HideDialog)
+                    store.dispatch(MovieAction.ShowSlider(it.banner))
                     store.dispatch(MovieAction.ShowComedyMovie(it.comedy))
                     store.dispatch(MovieAction.ShowSerials(it.serials))
                     store.dispatch(MovieAction.ShowFamousMovie(it.famous))
@@ -74,19 +76,11 @@ class MovieViewModel @Inject constructor(
     }
 
     data class MainSate(
+        val banner: List<BannerModel>,
         val comedy: List<DomainMoviesItem>,
         val serials: List<DomainMoviesItem>,
         val famous: List<DomainMoviesItem>,
     )
-
-
-    private fun showSlider(type:String) {
-        viewModelScope.launch {
-            showListSliderUseCase.execute(type).collect {
-                store.dispatch(MovieAction.ShowSlider(it))
-            }
-        }
-    }
 
 
 }
