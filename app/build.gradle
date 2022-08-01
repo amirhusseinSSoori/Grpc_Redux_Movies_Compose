@@ -29,8 +29,9 @@ android {
         compose  = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-alpha04"
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
+
 }
 
 
@@ -40,21 +41,18 @@ dependencies {
     with data
     with common
 
-
     implementation androidx.values()
     testImplementation test.junit
     androidTestImplementation test.test_ext
     androidTestImplementation test.test_espresso
 
-
-    //grpc
     implementation grpc.values()
     compileOnly grpc_util.annotations
-    testImplementation("org.mockito:mockito-core:4.1.0")
-    testImplementation "io.mockk:mockk:1.12.1"
+    testImplementation("org.mockito:mockito-core:4.5.1")
+    testImplementation "io.mockk:mockk:1.12.4"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     //compose
     implementation compose_mian.values()
     implementation compose_util.activity
@@ -70,15 +68,11 @@ dependencies {
     //coroutine
     implementation coroutine.android
 
-
-
     // accompanist
     api compose_accompanist.pager
     api compose_accompanist.insets
     api compose_accompanist.pager_indicators
 
-
-
     implementation("io.coil-kt:coil-compose:1.4.0")
-    implementation "com.airbnb.android:lottie-compose:4.2.0"
+    implementation "com.airbnb.android:lottie-compose:5.1.1"
 }
