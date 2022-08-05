@@ -1,14 +1,14 @@
 package com.amirhusseinsoori.grpckotlin.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
+    primary = ColorPrimary,
+    primaryVariant = DarkColor,
     secondary = Teal200
 
     /* Other default colors to override
@@ -22,7 +22,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun ThemeGrpcMovies(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun ThemeGrpcMovies( content: @Composable () -> Unit) {
     MaterialTheme(
         colors = LightColorPalette,
         typography = Typography,

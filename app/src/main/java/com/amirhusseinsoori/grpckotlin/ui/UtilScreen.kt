@@ -21,7 +21,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.amirhusseinsoori.grpckotlin.ui.theme.Purple500
+import com.amirhusseinsoori.grpckotlin.ui.theme.LightColor
 
 @Composable
 fun Loader(anim: Int) {
@@ -90,7 +90,7 @@ fun ShowErrorDialog(showDialog: Boolean, type: String, callEvent: () -> Unit) {
                     modifier = Modifier
                         .height(2.dp)
                         .padding(start = 4.dp, end = 4.dp)
-                        .background(Purple500)
+                        .background(LightColor)
                 )
                 Text(
                     text = type,
@@ -102,7 +102,7 @@ fun ShowErrorDialog(showDialog: Boolean, type: String, callEvent: () -> Unit) {
                     modifier = Modifier
                         .height(2.dp)
                         .padding(start = 4.dp, end = 4.dp)
-                        .background(Purple500)
+                        .background(LightColor)
                 )
                 Button(
                     modifier = Modifier

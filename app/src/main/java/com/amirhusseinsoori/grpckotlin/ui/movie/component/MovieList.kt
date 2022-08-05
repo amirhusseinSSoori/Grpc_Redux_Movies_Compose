@@ -27,7 +27,7 @@ import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.R
-import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
+import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
 
 
 @Composable
@@ -38,6 +38,7 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
+            .padding(8.dp)
             .background(
                 shape = RoundedCornerShape(corner = CornerSize(10.dp)),
                 brush = Brush.verticalGradient(
@@ -45,6 +46,7 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
                 )
             )
             .padding(8.dp),
+
     ) {
         Text(
             modifier = Modifier
@@ -83,7 +85,7 @@ fun MovieItems(movie: DomainMoviesItem) {
                 shape = RoundedCornerShape(corner = CornerSize(10.dp)),
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        bCard,
+                        ColorPrimary,
                         Color.White
                     )
                 )

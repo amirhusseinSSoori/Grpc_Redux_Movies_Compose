@@ -1,26 +1,30 @@
 package com.amirhusseinsoori.grpckotlin.component.banner.utils
 
 import androidx.compose.ui.graphics.Color
+import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
+import com.amirhusseinsoori.grpckotlin.ui.theme.DarkColor
+import com.amirhusseinsoori.grpckotlin.ui.theme.LightColor
 import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
 
 
 sealed class ProvideGradiant( var list: List<Color>) {
-    object PurpleAndWhite : ProvideGradiant(
+    object BlackAndWhite : ProvideGradiant(
         listOf(
-            bCard,
+            ColorPrimary,
             Color.White
         )
     )
-    object WhiteAndWhite : ProvideGradiant(
+    object WhiteAndLightBack : ProvideGradiant(
         listOf(
+            ColorPrimary,
+            LightColor,
             Color.White,
-            Color.White
         )
     )
-    object WhiteAndPurple : ProvideGradiant(
+    object WhiteAndBlack : ProvideGradiant(
         listOf(
             Color.White,
-            bCard
+            ColorPrimary
         )
     )
 }
