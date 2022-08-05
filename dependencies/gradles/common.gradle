@@ -18,12 +18,12 @@ ext.commonConfig = {
     }
 }
 ext.domain = {
-    implementation project(path: ':domain')
+    implementation project(path: ':core:domain')
 }
 ext.common = {
     implementation project(path: ':common')
 }
 
 ext.data = {
-    implementation project(path: ':data')
+    implementation project(path: ':core:data')
 }

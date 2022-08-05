@@ -1,13 +1,10 @@
 package com.amirhusseinsoori.data.repository
 
 import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
-import com.amirhusseinsoori.domain.repository.MovieListRepository
-import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito

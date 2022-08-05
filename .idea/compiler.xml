@@ -3,6 +3,10 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="GrpcKotlin.app" target="11" />
+      <module name="GrpcKotlin.core.data" target="11" />
+      <module name="GrpcKotlin.core.domain" target="1.8" />
+      <module name="GrpcKotlin.core.domain.main" target="1.8" />
+      <module name="GrpcKotlin.core.domain.test" target="1.8" />
       <module name="GrpcKotlin.data" target="11" />
       <module name="GrpcKotlin.domain" target="1.8" />
       <module name="GrpcKotlin.domain.main" target="1.8" />

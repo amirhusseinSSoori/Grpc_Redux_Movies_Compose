@@ -4,8 +4,6 @@ import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
 import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSourceImp
 import com.amirhusseinsoori.data.dataSource.slider.HeaderListSource
 import com.amirhusseinsoori.data.dataSource.slider.HeaderListSourceImp
-import com.amirhusseinsoori.data.repository.MovieListRepositoryImp
-import com.amirhusseinsoori.domain.repository.MovieListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
