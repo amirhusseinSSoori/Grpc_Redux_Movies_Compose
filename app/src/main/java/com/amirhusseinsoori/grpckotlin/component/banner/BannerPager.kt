@@ -86,13 +86,13 @@ fun BannerPager(
             VerticalPagerIndicator(
                 pagerState = pagerState,
                 modifier = Modifier
-                    .align(indicatorGravity)
+                    .align(indicatorGravity).padding(20.dp)
             )
         } else {
             HorizontalPagerIndicator(
                 pagerState = pagerState,
                 modifier = Modifier
-                    .align(indicatorGravity)
+                    .align(indicatorGravity).padding(20.dp)
             )
         }
 
