@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.amirhusseinsoori.grpckotlin.navigation.InitialNavGraph
 import com.amirhusseinsoori.grpckotlin.ui.movie.Movie
 import com.amirhusseinsoori.grpckotlin.ui.movie.MovieViewModel
 import com.amirhusseinsoori.grpckotlin.ui.theme.ThemeGrpcMovies
@@ -19,14 +20,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ThemeGrpcMovies {
-                val viewModel: MovieViewModel = hiltViewModel()
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                 Movie(viewModel = viewModel)
-                }
+
+                InitialNavGraph()
+//                val viewModel: MovieViewModel = hiltViewModel()
+//                // A surface container using the 'background' color from the theme
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colors.background
+//                ) {
+//                 Movie(viewModel = viewModel)
+//                }
             }
         }
     }

@@ -72,7 +72,9 @@ dependencies {
     api compose_accompanist.pager
     api compose_accompanist.insets
     api compose_accompanist.pager_indicators
+    api compose_accompanist.navigation
 
     implementation("io.coil-kt:coil-compose:1.4.0")
     implementation "com.airbnb.android:lottie-compose:5.1.1"
+
 }

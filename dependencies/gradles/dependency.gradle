@@ -1,8 +1,8 @@
 ext.androidx = [
-        core            : "androidx.core:core-ktx:${androidx_core_version}",
-        livedata        : "androidx.lifecycle:lifecycle-livedata-ktx:${androidx_lifecycle_version}",
-        viewmodel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:${androidx_lifecycle_version}",
-        material        : "com.google.android.material:material:${material_version}"
+        core     : "androidx.core:core-ktx:${androidx_core_version}",
+        livedata : "androidx.lifecycle:lifecycle-livedata-ktx:${androidx_lifecycle_version}",
+        viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:${androidx_lifecycle_version}",
+        material : "com.google.android.material:material:${material_version}"
 ]
 
 
@@ -10,7 +10,7 @@ ext.grpc = [
         okhttp  : "io.grpc:grpc-okhttp:${grpc_version}",
         protobuf: "io.grpc:grpc-protobuf-lite:${grpc_protobuf_version}",
         stub    : "io.grpc:grpc-stub:${grpc_version}",
-        test  : "io.grpc:grpc-testing:${grpc_version}"
+        test    : "io.grpc:grpc-testing:${grpc_version}"
 ]
 ext.grpc_util = [
         annotations: "org.apache.tomcat:annotations-api:6.0.53"
@@ -34,7 +34,8 @@ ext.compose_util = [
 ext.compose_accompanist = [
         pager           : "com.google.accompanist:accompanist-pager:$compose_accompanist",
         insets          : "com.google.accompanist:accompanist-insets:$compose_accompanist",
-        pager_indicators: "com.google.accompanist:accompanist-pager-indicators:$compose_accompanist"
+        pager_indicators: "com.google.accompanist:accompanist-pager-indicators:$compose_accompanist",
+        navigation      : "com.google.accompanist:accompanist-navigation-animation:$compose_accompanist"
 ]
 
 ext.coroutine = [
