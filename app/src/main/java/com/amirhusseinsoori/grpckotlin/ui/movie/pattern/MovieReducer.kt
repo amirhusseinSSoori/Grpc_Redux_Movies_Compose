@@ -28,6 +28,9 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
             is MovieAction.ShowSerials -> {
                 displaySerialsList(currentState, action)
             }
+            is MovieAction.ShowSearch -> {
+                displaySearchList(currentState, action)
+            }
             is MovieAction.ShowDialog -> {
                 showDialog(currentState, message = action.message)
             }
@@ -84,6 +87,14 @@ class MovieReducer : Reducer<MovieViewState, MovieEffect, MovieAction> {
     ) = currentState.copy(
         listComedy = action.movies,
     )
+
+    private fun displaySearchList(
+        currentState: MovieViewState,
+        action: MovieAction.ShowSearch
+    ) = currentState.copy(
+        searchList = action.search,
+    )
+
 
     private fun displaySerialsList(
         currentState: MovieViewState,

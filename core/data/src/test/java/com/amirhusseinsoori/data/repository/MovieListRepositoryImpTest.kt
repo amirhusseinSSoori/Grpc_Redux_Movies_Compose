@@ -1,6 +1,6 @@
 package com.amirhusseinsoori.data.repository
 
-import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
+import com.amirhusseinsoori.data.dataSource.category.MovieRemoteSource
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

@@ -12,6 +12,7 @@ data class MovieViewState(
     val listFamous: List<DomainMoviesItem> = emptyList(),
     val listComedy: List<DomainMoviesItem> = emptyList(),
     val listSerials: List<DomainMoviesItem> = emptyList(),
+    val searchList: List<DomainMoviesItem> = emptyList(),
     val slider: List<BannerModel>? = emptyList(),
     val DiaLog: Boolean = false,
     val message: String = ""

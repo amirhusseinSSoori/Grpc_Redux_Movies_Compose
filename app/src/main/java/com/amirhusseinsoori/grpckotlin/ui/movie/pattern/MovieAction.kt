@@ -13,6 +13,7 @@ sealed class MovieAction : Action {
     data class ShowComedyMovie(val movies: List<DomainMoviesItem>) : MovieAction()
     data class ShowSerials(val movies: List<DomainMoviesItem>) : MovieAction()
     data class ShowSlider(val sliders: List<BannerModel>) : MovieAction()
+    data class ShowSearch(val search: List<DomainMoviesItem>) : MovieAction()
 
     data class ShowDialog(val message:String) : MovieAction()
     object HideDialog : MovieAction()

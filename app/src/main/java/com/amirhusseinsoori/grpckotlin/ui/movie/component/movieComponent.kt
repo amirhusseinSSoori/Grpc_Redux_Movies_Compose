@@ -6,6 +6,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,30 +22,32 @@ import com.amirhusseinsoori.grpckotlin.component.banner.utils.ProvideGradiant
 fun MovieDetails(
     itemsBanner: List<BannerModel>?,
     famousItems: List<DomainMoviesItem>,
-    serialsItems:List<DomainMoviesItem>,
-    comedyItems:List<DomainMoviesItem>
+    serialsItems: List<DomainMoviesItem>,
+    comedyItems: List<DomainMoviesItem>,
+    searchList: List<DomainMoviesItem>
 ) {
 
-        Banner(itemsBanner)
+    Banner(itemsBanner)
+
+    Text(text = searchList.toString())
+    MovieList(
+        "Comedy & Action",
+        comedyItems, ProvideGradiant.BlackAndWhite.list
+    )
+
+    MovieList(
+        "Serials",
+        serialsItems,
+        ProvideGradiant.WhiteAndLightBack.list
+    )
 
 
-        MovieList("Comedy & Action",
-            comedyItems, ProvideGradiant.BlackAndWhite.list
-        )
+    MovieList(
+        "Popular",
+        famousItems,
+        ProvideGradiant.WhiteAndBlack.list
 
-        MovieList(
-            "Serials",
-            serialsItems,
-            ProvideGradiant.WhiteAndLightBack.list
-        )
-
-
-        MovieList(
-            "Popular",
-            famousItems,
-            ProvideGradiant.WhiteAndBlack.list
-
-        )
+    )
 
 
 }

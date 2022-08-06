@@ -1,7 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +18,7 @@ import com.amirhusseinsoori.grpckotlin.ui.ShowLoading
 import com.amirhusseinsoori.grpckotlin.ui.movie.component.MovieDetails
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
+import kotlin.math.log
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -39,8 +40,8 @@ fun Movie(viewModel: MovieViewModel) {
                                 state = rememberScrollState()
                             )
                             .padding(
-                                start=5.dp,
-                                end=5.dp,
+                                start = 5.dp,
+                                end = 5.dp,
                                 top = padding.calculateTopPadding()
                             )
                     ) {
@@ -48,7 +49,8 @@ fun Movie(viewModel: MovieViewModel) {
                             slider,
                             listFamous,
                             listSerials,
-                            listComedy
+                            listComedy,
+                            searchList
                         )
                     }
                 }

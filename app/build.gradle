@@ -64,7 +64,8 @@ dependencies {
     implementation hilt.android
     kapt hilt.compiler
 
-
+    implementation("io.arrow-kt:arrow-core:1.0.1")
+    
     //coroutine
     implementation coroutine.android
 

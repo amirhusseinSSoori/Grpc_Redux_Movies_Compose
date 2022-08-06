@@ -1,7 +1,7 @@
 package com.amirhusseinsoori.data.di
 
-import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSource
-import com.amirhusseinsoori.data.dataSource.remote.MovieRemoteSourceImp
+import com.amirhusseinsoori.data.dataSource.category.MovieRemoteSource
+import com.amirhusseinsoori.data.dataSource.category.MovieRemoteSourceImp
 import com.amirhusseinsoori.data.dataSource.slider.HeaderListSource
 import com.amirhusseinsoori.data.dataSource.slider.HeaderListSourceImp
 import dagger.Binds

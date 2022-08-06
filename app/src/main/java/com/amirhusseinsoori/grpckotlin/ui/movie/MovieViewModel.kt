@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.grpckotlin.ui.movie
 
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.common.MovieTypes
@@ -9,6 +10,7 @@ import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.domain.redux.LoggingMiddleware
 import com.amirhusseinsoori.domain.redux.Store
+import com.amirhusseinsoori.domain.usecase.SearchMoviesUseCase
 import com.amirhusseinsoori.domain.usecase.ShowAllMovieUseCase
 import com.amirhusseinsoori.domain.usecase.ShowListSliderUseCase
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
@@ -25,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(
     private val showAllMovieUseCase: ShowAllMovieUseCase,
-    private val showListSliderUseCase: ShowListSliderUseCase
+    private val showListSliderUseCase: ShowListSliderUseCase,
+    private val searchMoviesUseCase: SearchMoviesUseCase
 ) : ViewModel() {
 
 
@@ -46,6 +49,30 @@ class MovieViewModel @Inject constructor(
 
     fun callEvent() {
         showAllMovies()
+
+        searchMovies()
+    }
+
+    private fun searchMovies() {
+        viewModelScope.launch {
+            searchMoviesUseCase.execute("a").onStart {
+                store.effect(MovieAction.ShowLoading)
+            }.collect { it ->
+                it.fold(
+                    ifLeft = {
+                        store.dispatch(MovieAction.ShowSearch(search = it))
+                        store.effect(MovieAction.HideLoading)
+                        store.dispatch(MovieAction.HideDialog)
+                    },
+                    ifRight = {
+                        store.dispatch(MovieAction.ShowDialog(message = it.message!!.showMessage()))
+                        store.effect(MovieAction.HideLoading)
+                    }
+                )
+
+            }
+        }
+
     }
 
     private fun showAllMovies() {
