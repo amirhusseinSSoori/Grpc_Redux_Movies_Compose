@@ -31,7 +31,7 @@ ext {
     coroutines_version = "1.6.2"
 
     //hilt
-    hilt_verstion = "2.42"
+    hilt_verstion = "2.44"
 
 
 
