@@ -26,10 +26,8 @@ fun MovieDetails(
     comedyItems: List<DomainMoviesItem>,
     searchList: List<DomainMoviesItem>
 ) {
-
     Banner(itemsBanner)
 
-    Text(text = searchList.toString())
     MovieList(
         "Comedy & Action",
         comedyItems, ProvideGradiant.BlackAndWhite.list
