@@ -11,13 +11,20 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.lifecycleOwnerTools
 import com.amirhusseinsoori.grpckotlin.ui.ShowErrorDialog
 import com.amirhusseinsoori.grpckotlin.ui.ShowLoading
 import com.amirhusseinsoori.grpckotlin.ui.movie.component.MovieDetails
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
+import kotlinx.coroutines.flow.Flow
 import kotlin.math.log
 
 
@@ -29,10 +36,10 @@ fun Movie(viewModel: MovieViewModel) {
             title = { Text(text = "Movie with Grpc") }
         )
     }) { padding ->
-        viewModel.viewState.collectAsState(initial = MovieViewState()).let { result ->
-            result.value.apply {
 
-
+        val state by lifecycleOwnerTools(viewModel.viewState).collectAsState(MovieViewState())
+        state.let { result ->
+            result.apply {
                 if (slider!!.isNotEmpty()) {
                     Column(
                         modifier = Modifier
@@ -68,9 +75,9 @@ fun Movie(viewModel: MovieViewModel) {
         }
 
     }
-
-
 }
+
+
 
 
 
