@@ -1,190 +1,169 @@
-package com.amirhusseinsoori.grpckotlin.component
 
-import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.composed
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.amirhusseinsoori.grpckotlin.R
-import com.amirhusseinsoori.grpckotlin.ui.theme.ThemeGrpcMovies
+import com.amirhusseinsoori.grpckotlin.ui.theme.*
+import com.google.accompanist.insets.LocalWindowInsets
 
-@Composable
-fun ExpandableSearchView(
-    searchDisplay: String,
-    onSearchDisplayChanged: (String) -> Unit,
-    onSearchDisplayClosed: () -> Unit,
-    modifier: Modifier = Modifier,
-    expandedInitially: Boolean = false,
-    tint: Color = MaterialTheme.colors.onPrimary
-) {
-    val (expanded, onExpandedChanged) = remember {
-        mutableStateOf(expandedInitially)
+fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
+    var isFocused by remember { mutableStateOf(false) }
+    var keyboardAppearedSinceLastFocused by remember { mutableStateOf(false) }
+    if (isFocused) {
+        val imeIsVisible = LocalWindowInsets.current.ime.isVisible
+        val focusManager = LocalFocusManager.current
+        LaunchedEffect(imeIsVisible) {
+            if (imeIsVisible) {
+                keyboardAppearedSinceLastFocused = true
+            } else if (keyboardAppearedSinceLastFocused) {
+                focusManager.clearFocus()
+            }
+        }
     }
-
-
-    Crossfade(targetState = expanded) { isSearchFieldVisible ->
-        when (isSearchFieldVisible) {
-            true -> ExpandedSearchView(
-                searchDisplay = searchDisplay,
-                onSearchDisplayChanged = onSearchDisplayChanged,
-                onSearchDisplayClosed = onSearchDisplayClosed,
-                onExpandedChanged = onExpandedChanged,
-                modifier = modifier,
-                tint = tint
-            )
-
-            false -> CollapsedSearchView(
-                onExpandedChanged = onExpandedChanged,
-                modifier = modifier,
-                tint = tint
-            )
+    onFocusEvent {
+        if (isFocused != it.isFocused) {
+            isFocused = it.isFocused
+            if (isFocused) {
+                keyboardAppearedSinceLastFocused = false
+            }
         }
     }
 }
-
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @Composable
-fun SearchIcon(iconTint: Color) {
-    Icon(
-        painter = painterResource(id = R.drawable.ic_search),
-        contentDescription = "search icon",
-        tint = iconTint
-    )
-}
-
-@Composable
-fun CollapsedSearchView(
-    onExpandedChanged: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    tint: Color = MaterialTheme.colors.onPrimary,
+fun SearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onClearQuery: () -> Unit,
+    onSearchFocusChange: (Boolean) -> Unit,
+    enableClose: Boolean,
+    modifier: Modifier = Modifier
 ) {
-
-    Row(
+    Surface(
+        color = FunctionalDarkGrey,
+        contentColor = FunctionalDarkGrey,
+        shape = MaterialTheme.shapes.small,
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 2.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .height(56.dp)
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        Box(Modifier.fillMaxSize()) {
+            if (query.isEmpty()) {
+                SearchHint()
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentHeight()
+            ) {
+
+                AnimatedVisibility(visible = enableClose) {
+                    IconButton(onClick = onClearQuery) {
+                        Icon(
+                            imageVector = mirroringCancelIcon(),
+                            tint = Shadow1,
+                            contentDescription = ""
+                        )
+                    }
+                }
+
+                val keyboardController = LocalSoftwareKeyboardController.current
+                BasicTextField(
+                    value = query,
+                    onValueChange = onQueryChange,
+                    modifier = Modifier
+                        .clearFocusOnKeyboardDismiss()
+                        .weight(1f)
+                        .onFocusChanged {
+                            onSearchFocusChange(it.isFocused)
+                        },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            keyboardController?.hide()
+                        },
+                    ),
+                )
+
+            }
+        }
+    }
+}
+
+private val IconSize = 48.dp
+
+@Composable
+private fun SearchHint() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize()
     ) {
         Text(
-            text = "Tasks",
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier
-                .padding(start = 16.dp)
-        )
-        IconButton(onClick = { onExpandedChanged(true) }) {
-            SearchIcon(iconTint = tint)
-        }
-    }
-}
-
-@Composable
-fun ExpandedSearchView(
-    searchDisplay: String,
-    onSearchDisplayChanged: (String) -> Unit,
-    onSearchDisplayClosed: () -> Unit,
-    onExpandedChanged: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    tint: Color = MaterialTheme.colors.onPrimary,
-) {
-    val focusManager = LocalFocusManager.current
-
-    val textFieldFocusRequester = remember { FocusRequester() }
-
-    SideEffect {
-        textFieldFocusRequester.requestFocus()
-    }
-
-    var textFieldValue by remember {
-        mutableStateOf(TextFieldValue(searchDisplay, TextRange(searchDisplay.length)))
-    }
-
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        IconButton(onClick = {
-            onExpandedChanged(false)
-            onSearchDisplayClosed()
-        }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = "back icon",
-                tint = tint
-            )
-        }
-        TextField(
-            value = textFieldValue,
-            onValueChange = {
-                textFieldValue = it
-                onSearchDisplayChanged(it.text)
-            },
-            trailingIcon = {
-                SearchIcon(iconTint = tint)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .focusRequester(textFieldFocusRequester),
-            label = {
-                Text(text = "Search", color = tint)
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
-            )
+            text = "Search Movies",
+            color = Neutral0
         )
     }
 }
 
-@Preview
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@Preview("default")
+@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("large font", fontScale = 2f)
 @Composable
-fun CollapsedSearchViewPreview() {
-    ThemeGrpcMovies {
-        Surface(
-            color = MaterialTheme.colors.primary
-        ) {
-            ExpandableSearchView(
-                searchDisplay = "",
-                onSearchDisplayChanged = {},
-                onSearchDisplayClosed = {}
+private fun SearchBarPreview() {
+
+    Surface() {
+            SearchBar(
+                query = "",
+                onQueryChange = { },
+                onSearchFocusChange = { },
+                onClearQuery = { },
+                enableClose = false
             )
         }
-    }
+
 }
 
-@Preview
 @Composable
-fun ExpandedSearchViewPreview() {
-    ThemeGrpcMovies {
-        Surface(
-            color = MaterialTheme.colors.primary
-        ) {
-            ExpandableSearchView(
-                searchDisplay = "",
-                onSearchDisplayChanged = {},
-                expandedInitially = true,
-                onSearchDisplayClosed = {}
-            )
-        }
-    }
-}
+fun mirroringIcon(ltrIcon: ImageVector, rtlIcon: ImageVector): ImageVector =
+    if (LocalLayoutDirection.current == LayoutDirection.Ltr) ltrIcon else rtlIcon
+@Composable
+fun mirroringCancelIcon() = mirroringIcon(
+    ltrIcon = Icons.Default.Close, rtlIcon = Icons.Outlined.ArrowForward
+)
