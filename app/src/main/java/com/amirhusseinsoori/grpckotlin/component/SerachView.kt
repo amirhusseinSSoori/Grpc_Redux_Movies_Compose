@@ -1,4 +1,3 @@
-
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -10,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.amirhusseinsoori.grpckotlin.ui.theme.*
 import com.google.accompanist.insets.LocalWindowInsets
 
@@ -55,6 +56,7 @@ fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
         }
     }
 }
+
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
@@ -130,13 +132,26 @@ private val IconSize = 48.dp
 
 @Composable
 private fun SearchHint() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize()
-    ) {
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (icon, txt) = createRefs()
+        Icon(
+            modifier = Modifier.constrainAs(icon) {
+                top.linkTo(parent.top, margin = 4.dp)
+                end.linkTo(parent.end, margin = 20.dp)
+                bottom.linkTo(parent.bottom, margin = 4.dp)
+            },
+            imageVector = Icons.Outlined.Search,
+            tint = Neutral0,
+            contentDescription = "search"
+        )
+
         Text(
+            modifier = Modifier.constrainAs(txt) {
+                top.linkTo(parent.top)
+                end.linkTo(parent.end)
+                start.linkTo(parent.start)
+                bottom.linkTo(parent.bottom)
+            },
             text = "Search Movies",
             color = Neutral0
         )
@@ -152,20 +167,21 @@ private fun SearchHint() {
 private fun SearchBarPreview() {
 
     Surface() {
-            SearchBar(
-                query = "",
-                onQueryChange = { },
-                onSearchFocusChange = { },
-                onClearQuery = { },
-                enableClose = false
-            )
-        }
+        SearchBar(
+            query = "",
+            onQueryChange = { },
+            onSearchFocusChange = { },
+            onClearQuery = { },
+            enableClose = false
+        )
+    }
 
 }
 
 @Composable
 fun mirroringIcon(ltrIcon: ImageVector, rtlIcon: ImageVector): ImageVector =
     if (LocalLayoutDirection.current == LayoutDirection.Ltr) ltrIcon else rtlIcon
+
 @Composable
 fun mirroringCancelIcon() = mirroringIcon(
     ltrIcon = Icons.Default.Close, rtlIcon = Icons.Outlined.ArrowForward
