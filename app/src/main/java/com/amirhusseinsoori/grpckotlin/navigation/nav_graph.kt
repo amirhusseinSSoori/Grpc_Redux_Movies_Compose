@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import com.amirhusseinsoori.grpckotlin.ui.intro.Intro
 import com.amirhusseinsoori.grpckotlin.ui.movie.Movie
 import com.amirhusseinsoori.grpckotlin.ui.movie.MovieViewModel
+import com.amirhusseinsoori.grpckotlin.ui.search.Search
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -27,6 +28,7 @@ fun InitialNavGraph() {
     AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route) {
         addIntro(navController)
         addMainNavigation(navController)
+        addSearchNavigation(navController)
 
     }
 
@@ -102,7 +104,44 @@ fun NavGraphBuilder.addMainNavigation(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Movie(viewModel = viewModel)
+            Movie(viewModel = viewModel,    navController= navController)
         }
     }
 }
+
+
+@ExperimentalAnimationApi
+fun NavGraphBuilder.addSearchNavigation(
+    navController: NavController
+) {
+
+    composable(
+        route = NavRoute.SearchRoute.route,
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { 300 },
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = FastOutSlowInEasing
+                )
+            ) + fadeOut(animationSpec = tween(300))
+        },
+        popEnterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { 300 },
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = FastOutSlowInEasing
+                )
+            ) + fadeIn(animationSpec = tween(300))
+        },
+    ) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            Search()
+        }
+    }
+}
+
