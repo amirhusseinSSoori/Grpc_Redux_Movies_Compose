@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.data.repository
 
 
+import android.util.Log
 import arrow.core.Either
 import com.amirhusseinsoori.data.dataSource.category.MovieRemoteSource
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
@@ -22,8 +23,11 @@ class MovieListRepositoryImp @Inject constructor(var local: MovieRemoteSource) :
 
     override fun searchMovies(type: String): Flow<Either<List<DomainMoviesItem>, Throwable>> =
         flow<Either<List<DomainMoviesItem>, Throwable>> {
+            Log.e("ssssss", "searchMovies:${local.searchMovies(type).videoListXList} ", )
             emit(Either.Left(local.searchMovies(type).videoListXList.moviesMapToDomain()))
-        }.catch { ex ->
+        }.catch {
+                ex ->
+            Log.e("ssssss", "searchMovies:${ex.message} ", )
             emit(Either.Right(ex))
         }.flowOn(Dispatchers.IO)
 
