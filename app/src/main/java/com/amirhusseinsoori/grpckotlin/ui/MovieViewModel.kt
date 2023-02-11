@@ -15,6 +15,7 @@ import com.amirhusseinsoori.domain.usecase.ShowListSliderUseCase
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieAction
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieReducer
+
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -49,23 +50,23 @@ class MovieViewModel @Inject constructor(
     fun callEvent() {
         showAllMovies()
 
-        searchMovies()
+
     }
 
-    private fun searchMovies() {
+     fun searchMovies(query:String) {
         viewModelScope.launch {
-            searchMoviesUseCase.execute("a").onStart {
+            searchMoviesUseCase.execute(query).onStart {
                 store.effect(MovieAction.ShowLoading)
+            }.onCompletion {
+                store.effect(MovieAction.HideLoading)
             }.collect { it ->
                 it.fold(
                     ifLeft = {
                         store.dispatch(MovieAction.ShowSearch(search = it))
-                        store.effect(MovieAction.HideLoading)
-                        store.dispatch(MovieAction.HideDialog)
                     },
                     ifRight = {
+                        store.dispatch(MovieAction.HideDialog)
                         store.dispatch(MovieAction.ShowDialog(message = it.message!!.showMessage()))
-                        store.effect(MovieAction.HideLoading)
                     }
                 )
 
@@ -86,7 +87,7 @@ class MovieViewModel @Inject constructor(
             }.onStart {
                 store.effect(MovieAction.ShowLoading)
             }.catch {
-                store.dispatch(MovieAction.HideLoading)
+                store.effect(MovieAction.HideLoading)
                 store.dispatch(MovieAction.ShowDialog(message = it.message!!.showMessage()))
             }.onCompletion {
                 store.effect(MovieAction.HideLoading)
