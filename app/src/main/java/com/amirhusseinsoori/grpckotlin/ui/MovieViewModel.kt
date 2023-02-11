@@ -1,7 +1,6 @@
-package com.amirhusseinsoori.grpckotlin.ui.movie
+package com.amirhusseinsoori.grpckotlin.ui
 
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.common.MovieTypes
