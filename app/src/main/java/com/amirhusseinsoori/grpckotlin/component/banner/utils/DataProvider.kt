@@ -2,9 +2,8 @@ package com.amirhusseinsoori.grpckotlin.component.banner.utils
 
 import androidx.compose.ui.graphics.Color
 import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
-import com.amirhusseinsoori.grpckotlin.ui.theme.DarkColor
 import com.amirhusseinsoori.grpckotlin.ui.theme.LightColor
-import com.amirhusseinsoori.grpckotlin.ui.theme.bCard
+
 
 
 sealed class ProvideGradiant( var list: List<Color>) {

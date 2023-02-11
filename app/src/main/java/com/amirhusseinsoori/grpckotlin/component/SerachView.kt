@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
 import com.amirhusseinsoori.grpckotlin.ui.theme.*
 import com.google.accompanist.insets.LocalWindowInsets
 
@@ -70,7 +72,7 @@ fun SearchBar(
 ) {
     Surface(
         color = FunctionalDarkGrey,
-        contentColor = Neutral0,
+        contentColor = Color.White,
         shape = MaterialTheme.shapes.small,
         modifier = modifier
             .fillMaxWidth()
@@ -92,7 +94,7 @@ fun SearchBar(
                     IconButton(onClick = onClearQuery) {
                         Icon(
                             imageVector = mirroringCancelIcon(),
-                            tint = Shadow1,
+                            tint = Color.White,
                             contentDescription = ""
                         )
                     }
@@ -141,7 +143,7 @@ private fun SearchHint() {
                 bottom.linkTo(parent.bottom, margin = 4.dp)
             },
             imageVector = Icons.Outlined.Search,
-            tint = Neutral0,
+            tint = Color.White,
             contentDescription = "search"
         )
 
@@ -152,8 +154,10 @@ private fun SearchHint() {
                 start.linkTo(parent.start)
                 bottom.linkTo(parent.bottom)
             },
+            fontFamily = utilFont,
+            fontWeight = FontWeight.Normal,
             text = "Search Movies",
-            color = Neutral0
+            color = Color.White
         )
     }
 }

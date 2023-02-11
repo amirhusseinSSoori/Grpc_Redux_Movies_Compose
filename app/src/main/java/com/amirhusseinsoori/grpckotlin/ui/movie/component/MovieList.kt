@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.R
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
 import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
 
 
@@ -58,6 +60,8 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
             text = type,
             style = typography.h6,
             textAlign = TextAlign.Left,
+            fontFamily = utilFont,
+            fontWeight = FontWeight.Light,
             color = Color.Black,
             fontSize = 18.sp
         )
@@ -102,13 +106,17 @@ fun MovieItems(movie: DomainMoviesItem) {
                     .padding(start = 8.dp),
                 textAlign = TextAlign.Center,
                 text = movie.Name,
+                fontFamily = utilFont,
+                fontWeight = FontWeight.Light,
                 fontSize = 12.sp, style = typography.h6
             )
             Text(
                 modifier = Modifier
-                    .padding(start = 5.dp),
+                    .padding(start = 8.dp),
                 textAlign = TextAlign.Center,
                 text = movie.Description,
+                fontFamily = utilFont,
+                fontWeight = FontWeight.Light,
                 fontSize = 8.sp,
                 style = typography.caption
             )

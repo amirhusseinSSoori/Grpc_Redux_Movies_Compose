@@ -14,14 +14,17 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.grpckotlin.component.banner.BannerPager
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.ProvideGradiant
-import com.amirhusseinsoori.grpckotlin.ui.theme.Neutral0
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
+
 
 
 @Composable
@@ -66,7 +69,7 @@ fun MovieToolbar(onClick:()->Unit) {
                 bottom.linkTo(parent.bottom, margin = 4.dp)
             },
             imageVector = Icons.Outlined.Search,
-            tint = Neutral0,
+            tint = Color.White,
             contentDescription = "search"
         )
 
@@ -75,9 +78,10 @@ fun MovieToolbar(onClick:()->Unit) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
                 bottom.linkTo(parent.bottom)
-            },
+            }, fontFamily = utilFont,
+            fontWeight = FontWeight.Normal,
             text = "Movie with Grpc",
-            color = Neutral0
+            color = Color.White
         )
     }
 }

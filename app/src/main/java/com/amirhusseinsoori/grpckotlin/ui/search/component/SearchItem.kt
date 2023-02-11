@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstrainScope
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
@@ -25,54 +26,60 @@ import coil.size.OriginalSize
 import coil.transform.RoundedCornersTransformation
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.R
-import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
-import com.amirhusseinsoori.grpckotlin.ui.theme.FunctionalDarkGrey
-import com.amirhusseinsoori.grpckotlin.ui.theme.LightColor
-import com.amirhusseinsoori.grpckotlin.ui.theme.Neutral0
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.ProvideGradiant
+import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
+
 
 
 @Composable
-fun SearchItem(movie: DomainMoviesItem){
-    ConstraintLayout(modifier = Modifier.fillMaxWidth().heightIn(150.dp).padding(8.dp).background(
-            shape = RoundedCornerShape(corner = CornerSize(10.dp)),
-        brush = Brush.verticalGradient(
-            colors = listOf(
-                ColorPrimary,
-                Color.White
-            )
-        )
-    )) {
-        val (image, title,des,views) = createRefs()
+fun SearchItem(movie: DomainMoviesItem) {
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(150.dp)
+            .padding(8.dp)
+            .background(
+                shape = RoundedCornerShape(corner = CornerSize(10.dp)),
+                brush = Brush.verticalGradient(
+                    colors = ProvideGradiant.WhiteAndLightBack.list
 
-        SearchImage(movie,image)
+                )
+            )
+    ) {
+        val (image, title, des, views) = createRefs()
+
+        SearchImage(movie, image)
 
         Text(
             modifier = Modifier.constrainAs(title) {
-                top.linkTo(parent.top,24.dp)
-                start.linkTo(image.end,16.dp)
-
+                top.linkTo(parent.top, 24.dp)
+                start.linkTo(image.end, 16.dp)
             },
+            fontFamily = utilFont,
+            fontWeight = FontWeight.Light,
             text = movie.Name,
-            color = FunctionalDarkGrey
+            color = Color.White
         )
 
         Text(
             modifier = Modifier.constrainAs(des) {
-                top.linkTo(title.bottom,16.dp)
-                start.linkTo(image.end,16.dp)
-
+                top.linkTo(title.bottom, 16.dp)
+                start.linkTo(image.end, 16.dp)
             },
+            fontFamily = utilFont,
+            fontWeight = FontWeight.Light,
             text = movie.Description,
-            color = FunctionalDarkGrey
+            color = Color.White
         )
         Text(
             modifier = Modifier.constrainAs(views) {
-                top.linkTo(des.bottom,16.dp)
-                start.linkTo(image.end,16.dp)
-
+                top.linkTo(des.bottom, 16.dp)
+                start.linkTo(image.end, 16.dp)
             },
+            fontFamily = utilFont,
+            fontWeight = FontWeight.Light,
             text = "views : ${movie.Views.toString()}",
-            color = FunctionalDarkGrey
+            color = Color.White
         )
 
 
@@ -80,7 +87,10 @@ fun SearchItem(movie: DomainMoviesItem){
 }
 
 @Composable
-private fun ConstraintLayoutScope.SearchImage(movie: DomainMoviesItem, ref: ConstrainedLayoutReference) {
+private fun ConstraintLayoutScope.SearchImage(
+    movie: DomainMoviesItem,
+    ref: ConstrainedLayoutReference
+) {
 
     val painter =
         rememberImagePainter(data = movie.Picture, builder = {
@@ -95,11 +105,13 @@ private fun ConstraintLayoutScope.SearchImage(movie: DomainMoviesItem, ref: Cons
         painter = painter,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.constrainAs(ref) {
-            top.linkTo(parent.top, margin = 4.dp)
-            start.linkTo(parent.start, margin = 10.dp)
-            bottom.linkTo(parent.bottom, margin = 4.dp)
-        }.size(150.dp)
+        modifier = Modifier
+            .constrainAs(ref) {
+                top.linkTo(parent.top, margin = 4.dp)
+                start.linkTo(parent.start, margin = 10.dp)
+                bottom.linkTo(parent.bottom, margin = 4.dp)
+            }
+            .size(150.dp)
             .padding(
                 start = 10.dp,
                 top = 10.dp,
