@@ -1,5 +1,6 @@
 package com.amirhusseinsoori.grpckotlin.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -14,7 +15,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.amirhusseinsoori.grpckotlin.ui.intro.Intro
 import com.amirhusseinsoori.grpckotlin.ui.movie.Movie
-import com.amirhusseinsoori.grpckotlin.ui.movie.MovieViewModel
+import com.amirhusseinsoori.grpckotlin.ui.MovieViewModel
 import com.amirhusseinsoori.grpckotlin.ui.search.Search
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -28,7 +29,7 @@ fun InitialNavGraph() {
     AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route) {
         addIntro(navController)
         addMainNavigation(navController)
-        addSearchNavigation(navController)
+        addSearchNavigation()
 
     }
 
@@ -73,6 +74,7 @@ fun NavGraphBuilder.addIntro(navController: NavController) {
     }
 }
 
+
 @ExperimentalAnimationApi
 fun NavGraphBuilder.addMainNavigation(
     navController: NavController
@@ -99,20 +101,22 @@ fun NavGraphBuilder.addMainNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
+
         val viewModel: MovieViewModel = hiltViewModel()
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Movie(viewModel = viewModel,    navController= navController)
+
+            Movie(viewModel,    navController= navController)
         }
     }
 }
 
 
+
 @ExperimentalAnimationApi
 fun NavGraphBuilder.addSearchNavigation(
-    navController: NavController
 ) {
 
     composable(
@@ -136,11 +140,13 @@ fun NavGraphBuilder.addSearchNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
+
+       val viewModel: MovieViewModel = hiltViewModel()
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Search()
+            Search(viewModel)
         }
     }
 }
