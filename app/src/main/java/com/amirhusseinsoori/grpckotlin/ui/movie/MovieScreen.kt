@@ -22,6 +22,7 @@ import com.amirhusseinsoori.grpckotlin.ui.MovieViewModel
 import com.amirhusseinsoori.grpckotlin.ui.ShowErrorDialog
 import com.amirhusseinsoori.grpckotlin.ui.ShowLoading
 import com.amirhusseinsoori.grpckotlin.ui.movie.component.MovieDetails
+import com.amirhusseinsoori.grpckotlin.ui.movie.component.MovieToolbar
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieEffect
 import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,7 @@ fun Movie(viewModel: MovieViewModel, navController: NavController) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
-                Text(text = "Movie with Grpc", modifier = Modifier.clickable {
+                MovieToolbar(onClick = {
                     navController.navigate(NavRoute.SearchRoute.route)
                 })
             }
@@ -60,8 +61,7 @@ fun Movie(viewModel: MovieViewModel, navController: NavController) {
                             slider,
                             listFamous,
                             listSerials,
-                            listComedy,
-                            searchList
+                            listComedy
                         )
                     }
                 }
