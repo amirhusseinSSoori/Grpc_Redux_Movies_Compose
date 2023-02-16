@@ -20,11 +20,11 @@ class MovieListRepositoryImpTest{
     }
 
     @Test
-    fun getShowAllMovie() {
+    fun getSearchMovie() {
         runBlocking {
             launch {
-                repository.getAllMovies().first()
-                Mockito.verify(mockRemoteSource).getAllMovie()
+                repository.searchMovies("").first()
+                Mockito.verify(mockRemoteSource).searchMovies("")
                 this.cancel()
             }
             return@runBlocking
