@@ -13,7 +13,10 @@ fun VideoListXModel.moviesItemMapToDomain(): DomainMoviesItem {
         ID = id ?: 0,
         Name = name ?: "",
         Picture = picture ?: "",
-        Views = views ?: 0
+        Views = views ?: 0,
+        Cast = cast,
+        Year = year.toString(),
+        Director = director
     )
 }
 
@@ -23,13 +26,14 @@ fun VideoHeaderXModel.moviesItemBannerMapToDomain(): BannerModel {
         ID = id ?: 0,
         Name = name ?: "",
         Picture = picture ?: "",
-        ID_VIDEO =  idvideo?: 0
+        ID_VIDEO = idvideo ?: 0
     )
 }
 
-fun List<VideoHeaderXModel> .moviesBannerMapToDomain(): List<BannerModel> {
+fun List<VideoHeaderXModel>.moviesBannerMapToDomain(): List<BannerModel> {
     return map { it.moviesItemBannerMapToDomain() }
 }
-fun List<VideoListXModel> .moviesMapToDomain(): List<DomainMoviesItem> {
+
+fun List<VideoListXModel>.moviesMapToDomain(): List<DomainMoviesItem> {
     return map { it.moviesItemMapToDomain() }
 }
