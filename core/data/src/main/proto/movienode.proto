@@ -29,6 +29,9 @@ message VideoListXModel {
   string Picture = 4;
   string Category = 5;
   int32  Views = 6;
+  int32  Year = 7;
+  string Director = 8 ;
+  string Cast = 9;
 }
 
 
