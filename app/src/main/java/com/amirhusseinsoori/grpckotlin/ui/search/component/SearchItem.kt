@@ -68,7 +68,7 @@ fun SearchItem(movie: DomainMoviesItem) {
             },
             fontFamily = utilFont,
             fontWeight = FontWeight.Light,
-            text = movie.Description,
+            text = movie.Director,
             color = Color.White
         )
         Text(

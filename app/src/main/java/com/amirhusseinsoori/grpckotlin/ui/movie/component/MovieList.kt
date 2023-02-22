@@ -114,7 +114,7 @@ fun MovieItems(movie: DomainMoviesItem) {
                 modifier = Modifier
                     .padding(start = 8.dp),
                 textAlign = TextAlign.Center,
-                text = movie.Description,
+                text = movie.Director,
                 fontFamily = utilFont,
                 fontWeight = FontWeight.Light,
                 fontSize = 8.sp,
