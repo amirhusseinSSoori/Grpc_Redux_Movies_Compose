@@ -54,6 +54,7 @@ fun SearchItem(movie: DomainMoviesItem) {
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(parent.top, 24.dp)
                 start.linkTo(image.end, 16.dp)
+                end.linkTo(parent.end,16.dp)
             },
             fontFamily = utilFont,
             fontWeight = FontWeight.Light,
@@ -65,6 +66,7 @@ fun SearchItem(movie: DomainMoviesItem) {
             modifier = Modifier.constrainAs(des) {
                 top.linkTo(title.bottom, 16.dp)
                 start.linkTo(image.end, 16.dp)
+                end.linkTo(parent.end,16.dp)
             },
             fontFamily = utilFont,
             fontWeight = FontWeight.Light,
@@ -75,6 +77,7 @@ fun SearchItem(movie: DomainMoviesItem) {
             modifier = Modifier.constrainAs(views) {
                 top.linkTo(des.bottom, 16.dp)
                 start.linkTo(image.end, 16.dp)
+                end.linkTo(parent.end,16.dp)
             },
             fontFamily = utilFont,
             fontWeight = FontWeight.Light,
