@@ -7,3 +7,5 @@ val LightColor = Color(0xFF484848)
 val DarkColor = Color(0xFF000000)
 val Teal200 = Color(0xFF03DAC5)
 val FunctionalDarkGrey = Color(0xff2e2e2e)
+val hoverColor = Color(0xB3484848)
+
