@@ -96,7 +96,7 @@ private fun ConstraintLayoutScope.SearchImage(
 ) {
 
     val painter =
-        rememberImagePainter(data = movie.Picture, builder = {
+        rememberImagePainter(data = movie.Picture.replace(" ","/"), builder = {
             size(OriginalSize)
             placeholder(R.drawable.ic_placeholder)
             error(R.drawable.ic_placeholder)

@@ -12,7 +12,7 @@ fun VideoListXModel.moviesItemMapToDomain(): DomainMoviesItem {
         Description = description ?: "",
         ID = id ?: 0,
         Name = name ?: "",
-        Picture = picture ?: "",
+        Picture = picture.replace("/", " ") ?: "",
         Views = views ?: 0,
         Cast = cast,
         Year = year.toString(),

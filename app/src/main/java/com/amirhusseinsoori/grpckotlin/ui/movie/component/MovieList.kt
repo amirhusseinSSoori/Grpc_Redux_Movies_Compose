@@ -93,8 +93,6 @@ fun MovieList(
 
 @Composable
 fun MovieItems(movie: DomainMoviesItem, navController: NavController) {
-
-
     Box(
         modifier = Modifier
             .padding(top = 30.dp, start = 10.dp, bottom = 10.dp)
@@ -103,16 +101,7 @@ fun MovieItems(movie: DomainMoviesItem, navController: NavController) {
                 val route =
                     "${NavRoute.DetailRoute.route}/${
                         sendArgByGson<DomainMoviesItem>(
-                            DomainMoviesItem(
-                                Description = movie.Description,
-                                ID = movie.ID,
-                                Name = movie.Name,
-                                Picture = movie.Picture.replace("/", " "),
-                                Views = movie.Views,
-                                Cast = movie.Cast,
-                                Director = movie.Director,
-                                Year = movie.Year
-                            )
+                            movie
                         )
                     }"
                 navController.navigate(route)
@@ -160,7 +149,7 @@ fun MovieItems(movie: DomainMoviesItem, navController: NavController) {
 @Composable
 private fun MovieImage(movie: DomainMoviesItem) {
     val painter =
-        rememberImagePainter(data = movie.Picture, builder = {
+        rememberImagePainter(data = movie.Picture.replace(" ", "/"), builder = {
             size(OriginalSize)
             placeholder(R.drawable.ic_placeholder)
             error(R.drawable.ic_placeholder)
