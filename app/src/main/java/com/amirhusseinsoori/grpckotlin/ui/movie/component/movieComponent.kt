@@ -107,8 +107,8 @@ fun Banner(
             modifier = Modifier.padding(top = 10.dp),
             items = slider ?: emptyList(),
             indicatorGravity = Alignment.BottomCenter
-        ) { item ->
-            Toast.makeText(context, "${item.Name}", Toast.LENGTH_SHORT).show()
+        ) {
+           //do someThing
         }
     }
 }
