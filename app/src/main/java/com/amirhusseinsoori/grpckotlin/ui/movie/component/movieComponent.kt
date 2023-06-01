@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.domain.entity.model.BannerModel
 import com.amirhusseinsoori.grpckotlin.component.banner.BannerPager
@@ -33,26 +34,29 @@ fun MovieDetails(
     famousItems: List<DomainMoviesItem>,
     serialsItems: List<DomainMoviesItem>,
     comedyItems: List<DomainMoviesItem>,
+    navController: NavController
 ) {
     Banner(itemsBanner)
 
     MovieList(
         "Comedy & Action",
-        comedyItems, ProvideGradiant.BlackAndWhite.list
+        comedyItems, ProvideGradiant.BlackAndWhite.list,
+        navController
     )
 
     MovieList(
         "Serials",
         serialsItems,
-        ProvideGradiant.WhiteAndLightBack.list
+        ProvideGradiant.WhiteAndLightBack.list,
+        navController
     )
 
 
     MovieList(
         "Popular",
         famousItems,
-        ProvideGradiant.WhiteAndBlack.list
-
+        ProvideGradiant.WhiteAndBlack.list,
+        navController
     )
 
 
