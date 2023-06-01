@@ -2,6 +2,7 @@ package com.amirhusseinsoori.grpckotlin.ui.movie.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -21,6 +22,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import coil.size.PixelSize
@@ -29,11 +32,19 @@ import coil.transform.RoundedCornersTransformation
 import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
+import com.amirhusseinsoori.grpckotlin.component.sendArgByGson
+import com.amirhusseinsoori.grpckotlin.navigation.NavRoute
 import com.amirhusseinsoori.grpckotlin.ui.theme.ColorPrimary
+import com.google.gson.Gson
 
 
 @Composable
-fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color>) {
+fun MovieList(
+    type: String,
+    movieItems: List<DomainMoviesItem>,
+    list: List<Color>,
+    navController: NavController
+) {
     Spacer(modifier = Modifier.height(10.dp))
     Card(
         shape = RoundedCornerShape(corner = CornerSize(10.dp)),
@@ -49,7 +60,7 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
             )
             .padding(8.dp),
 
-    ) {
+        ) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,7 +83,7 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
         ) {
             LazyRow {
                 items(movieItems) {
-                    MovieItems(it)
+                    MovieItems(it, navController)
                 }
             }
         }
@@ -81,10 +92,24 @@ fun MovieList(type: String, movieItems: List<DomainMoviesItem>, list: List<Color
 
 
 @Composable
-fun MovieItems(movie: DomainMoviesItem) {
+fun MovieItems(movie: DomainMoviesItem, navController: NavController) {
+
+
     Box(
         modifier = Modifier
             .padding(top = 30.dp, start = 10.dp, bottom = 10.dp)
+
+            .clickable {
+                val route =
+                    "${NavRoute.DetailRoute.route}/${movie.Description}/${movie.Name}/${movie.Views}/${movie.Cast}/${movie.Year}/${
+                        movie.Picture.replace(
+                            "/",
+                            " "
+                        )
+                    }"
+                navController.navigate(route)
+
+            }
             .background(
                 shape = RoundedCornerShape(corner = CornerSize(10.dp)),
                 brush = Brush.verticalGradient(
@@ -133,14 +158,15 @@ private fun MovieImage(movie: DomainMoviesItem) {
             error(R.drawable.ic_placeholder)
             crossfade(1000)
 //            transformations(CircleCropTransformation(),BlurTransformation(LocalContext.current))
-           transformations(RoundedCornersTransformation(50f))
+            transformations(RoundedCornersTransformation(50f))
         })
 
     Image(
         painter = painter,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(
                 start = 10.dp,
                 top = 10.dp,
