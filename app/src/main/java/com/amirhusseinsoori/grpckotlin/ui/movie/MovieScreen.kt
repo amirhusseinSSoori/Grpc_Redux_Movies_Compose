@@ -61,7 +61,8 @@ fun Movie(viewModel: MovieViewModel, navController: NavController) {
                             slider,
                             listFamous,
                             listSerials,
-                            listComedy
+                            listComedy,
+                            navController
                         )
                     }
                 }
