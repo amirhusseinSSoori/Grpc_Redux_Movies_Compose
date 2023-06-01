@@ -159,14 +159,9 @@ fun NavGraphBuilder.detailsNavigation(
     navController: NavController
 ) {
     composable(
-        route = NavRoute.DetailRoute.route + "/{Description}/{Name}/{Views}/{Cast}/{Year}/{Picture}",
+        route = NavRoute.DetailRoute.route + "/{DomainMoviesItem}",
         arguments = listOf(
-            navArgument("Description") { type = NavType.StringType },
-            navArgument("Name") { type = NavType.StringType },
-            navArgument("Views") { type = NavType.IntType },
-            navArgument("Cast") { type = NavType.StringType },
-            navArgument("Year") { type = NavType.StringType },
-            navArgument("Picture") { type = NavType.StringType },
+            navArgument("DomainMoviesItem") { type = NavType.StringType }
         ),
         exitTransition = {
             slideOutHorizontally(
@@ -187,15 +182,9 @@ fun NavGraphBuilder.detailsNavigation(
             ) + fadeIn(animationSpec = tween(100))
         },
     ) { backStackEntry ->
-        val description = backStackEntry.arguments?.getString("Description") ?: ""
-        val name = backStackEntry.arguments?.getString("Name") ?: ""
-        val views = backStackEntry.arguments?.getInt("Views") ?: 0
-        val cast = backStackEntry.arguments?.getString("Cast") ?: ""
-        val year = backStackEntry.arguments?.getInt("Year") ?: 0
-        val picture = backStackEntry.arguments?.getString("Picture") ?: ""
-        ScreenDetails(name,description,views,cast,year,picture)
-
-
+        val dto = backStackEntry.arguments?.getString("DomainMoviesItem") ?: ""
+        val movieItems = getArgByGson<DomainMoviesItem>(dto)
+        ScreenDetails(movieItems)
     }
 
 

@@ -11,10 +11,10 @@ import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 
 
 @Composable
-fun ScreenDetails(name: String,description:String,views:Int,cast:String,year:Int,picture:String) {
+fun ScreenDetails(movieItems:DomainMoviesItem) {
     Column(Modifier.fillMaxSize()) {
 
-        Text(text = picture.replace(" ","/"))
+        Text(text = movieItems.Picture.replace(" ","/"))
 
         
     }

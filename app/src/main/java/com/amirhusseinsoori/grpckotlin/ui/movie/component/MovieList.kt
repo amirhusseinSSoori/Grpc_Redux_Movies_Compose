@@ -101,10 +101,18 @@ fun MovieItems(movie: DomainMoviesItem, navController: NavController) {
 
             .clickable {
                 val route =
-                    "${NavRoute.DetailRoute.route}/${movie.Description}/${movie.Name}/${movie.Views}/${movie.Cast}/${movie.Year}/${
-                        movie.Picture.replace(
-                            "/",
-                            " "
+                    "${NavRoute.DetailRoute.route}/${
+                        sendArgByGson<DomainMoviesItem>(
+                            DomainMoviesItem(
+                                Description = movie.Description,
+                                ID = movie.ID,
+                                Name = movie.Name,
+                                Picture = movie.Picture.replace("/", " "),
+                                Views = movie.Views,
+                                Cast = movie.Cast,
+                                Director = movie.Director,
+                                Year = movie.Year
+                            )
                         )
                     }"
                 navController.navigate(route)
