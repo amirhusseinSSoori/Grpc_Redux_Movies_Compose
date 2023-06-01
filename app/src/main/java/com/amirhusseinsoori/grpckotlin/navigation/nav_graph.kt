@@ -33,7 +33,7 @@ fun InitialNavGraph() {
     AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route) {
         addIntro(navController)
         addMainNavigation(navController)
-        addSearchNavigation()
+        addSearchNavigation(navController)
         detailsNavigation(navController)
 
     }
@@ -120,6 +120,7 @@ fun NavGraphBuilder.addMainNavigation(
 
 @ExperimentalAnimationApi
 fun NavGraphBuilder.addSearchNavigation(
+    navController: NavController
 ) {
 
     composable(
@@ -148,7 +149,7 @@ fun NavGraphBuilder.addSearchNavigation(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Search(viewModel)
+            Search(viewModel,navController)
         }
     }
 }

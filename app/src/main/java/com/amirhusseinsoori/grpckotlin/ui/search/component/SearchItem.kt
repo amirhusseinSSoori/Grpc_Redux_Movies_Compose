@@ -1,7 +1,9 @@
 package com.amirhusseinsoori.grpckotlin.ui.search.component
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +23,7 @@ import androidx.constraintlayout.compose.ConstrainScope
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import coil.transform.RoundedCornersTransformation
@@ -28,16 +31,26 @@ import com.amirhusseinsoori.domain.entity.DomainMoviesItem
 import com.amirhusseinsoori.grpckotlin.R
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.ProvideGradiant
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.utilFont
-
+import com.amirhusseinsoori.grpckotlin.component.sendArgByGson
+import com.amirhusseinsoori.grpckotlin.navigation.NavRoute
 
 
 @Composable
-fun SearchItem(movie: DomainMoviesItem) {
+fun SearchItem(movie: DomainMoviesItem,navController:NavController) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(150.dp)
             .padding(8.dp)
+            .clickable {
+                val route =
+                    "${NavRoute.DetailRoute.route}/${
+                        sendArgByGson<DomainMoviesItem>(
+                            movie
+                        )
+                    }"
+                navController.navigate(route)
+            }
             .background(
                 shape = RoundedCornerShape(corner = CornerSize(10.dp)),
                 brush = Brush.verticalGradient(

@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.amirhusseinsoori.grpckotlin.component.banner.utils.lifecycleOwnerTools
 import com.amirhusseinsoori.grpckotlin.ui.MovieViewModel
 import com.amirhusseinsoori.grpckotlin.ui.ShowErrorDialog
@@ -21,10 +22,9 @@ import com.amirhusseinsoori.grpckotlin.ui.movie.pattern.MovieViewState
 import com.amirhusseinsoori.grpckotlin.ui.search.component.SearchItem
 
 
-
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalAnimationApi::class)
 @Composable
-fun Search(viewModel: MovieViewModel) {
+fun Search(viewModel: MovieViewModel, navController: NavController) {
 
 
     Column(
@@ -54,7 +54,7 @@ fun Search(viewModel: MovieViewModel) {
                     result.apply {
                         LazyColumn {
                             items(result.searchList) { item ->
-                                SearchItem(movie = item)
+                                SearchItem(movie = item, navController = navController)
                             }
                         }
 
