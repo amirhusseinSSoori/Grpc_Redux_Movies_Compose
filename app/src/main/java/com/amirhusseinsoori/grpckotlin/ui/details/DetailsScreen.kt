@@ -97,13 +97,13 @@ private fun HoverForGround(movieItems: DomainMoviesItem) {
 @Composable
 fun DetailsImage(uri: String) {
     Column {
-        var showRed by remember { mutableStateOf(false) }
+        var visibleAnimation by remember { mutableStateOf(false) }
         LaunchedEffect(key1 = true) {
             delay(100L)
-            showRed = true
+            visibleAnimation = true
         }
         AnimatedVisibility(
-            visible = showRed,
+            visible = visibleAnimation,
             enter = scaleIn() + expandVertically(expandFrom = Alignment.CenterVertically),
             exit = scaleOut() + shrinkVertically(shrinkTowards = Alignment.CenterVertically)
         ) {
