@@ -10,11 +10,11 @@ object Constance {
     const val NoError ="NoError"
 }
 ```
-And There are  Three Grpc Services (Unray) for Communication with the server
+And There are  Three Grpc Services (Unray) for Communication with the server.
 
-1 - get list Movies with filter ( GetVideosX )
-2 - Search ( SearchVideosX )
-3 - banner ( GetHeadersX )
+1 - get list Movies with filter ( GetVideosX ).
+2 - Search ( SearchVideosX ).
+3 - banner ( GetHeadersX ).
 
 
 ```kotlin
