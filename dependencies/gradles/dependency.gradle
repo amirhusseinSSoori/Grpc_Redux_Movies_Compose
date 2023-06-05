@@ -25,10 +25,11 @@ ext.compose_mian = [
 ]
 
 ext.compose_util = [
-        activity       : "androidx.activity:activity-compose:${compose_activity_version}",
-        navigation_hilt: "androidx.hilt:hilt-navigation-compose:${compose_navigation_hilt}",
-        ui_test        : "androidx.compose.ui:ui-test-junit4:${compose_version}",
-        ui_tooling     : "androidx.compose.ui:ui-tooling:${compose_version}"
+        activity        : "androidx.activity:activity-compose:${compose_activity_version}",
+        navigation_hilt : "androidx.hilt:hilt-navigation-compose:${compose_navigation_hilt}",
+        constraintlayout: "androidx.constraintlayout:constraintlayout-compose:1.0.1",
+        ui_test         : "androidx.compose.ui:ui-test-junit4:${compose_version}",
+        ui_tooling      : "androidx.compose.ui:ui-tooling:${compose_version}"
 ]
 
 ext.compose_accompanist = [
@@ -47,8 +48,17 @@ ext.hilt = [
         core    : "com.google.dagger:hilt-core:${hilt_verstion}",
         compiler: "com.google.dagger:hilt-compiler:${hilt_verstion}"
 ]
+ext.utils = [
+        coil  : "io.coil-kt:coil-compose:1.4.0",
+        lottie: "com.airbnb.android:lottie-compose:5.1.1",
+        arrow : "io.arrow-kt:arrow-core:1.0.1",
+        gson  : "com.google.code.gson:gson:2.10.1"
+]
 ext.test = [
         junit        : "junit:junit:4.13.2",
         test_ext     : "androidx.test.ext:junit:1.1.3",
+        mockk        : "io.mockk:mockk:1.12.4",
+        mockito      : "org.mockito:mockito-core:4.5.1",
+        core         : "androidx.arch.core:core-testing:2.1.0",
         test_espresso: 'androidx.test.espresso:espresso-core:3.4.0'
 ]
