@@ -3,12 +3,13 @@ Sometimes developers want to be different from other guys. This repository was c
 
 So first clone this repository for run in client Python Server  : https://github.com/M-CAP7AIN/gRPC-Python-Server and set your Ip in BaseIp in (Constance class in client)
 
-
+```kotlin
 object Constance {
     const val BaseIp = ""
     const val BasePort = 50051
     const val NoError ="NoError"
 }
+```
 
 
 
