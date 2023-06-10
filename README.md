@@ -2,9 +2,7 @@
 
 Sometimes developers want to differentiate themselves from others. This repository was created a few years ago while I was working at the University of Sharif. Now, I have found some time to update and maintain the code. I remember when I first heard of gRPC, I was struggling with REST APIs. However, using gRPC with Android has been much easier for me. In this repository, I have used various technologies such as Redux, Jetpack Compose, and many others..
 
-So first clone this repository for a run in client Python
-Server: https://github.com/M-CAP7AIN/gRPC-Python-Server and set your Ip in BaseIp in (Constance
-class in client). before that, you should read some articles about Grpc technology.
+To run the client Python server, first clone this repository: https://github.com/M-CAP7AIN/gRPC-Python-Server. Then, set your IP in the BaseIp field of the Constant class in the client code. Before doing so, be sure to read some articles about gRPC technology.
 
 ```kotlin
 object Constance {
