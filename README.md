@@ -1,10 +1,6 @@
 # GRPC(Redux_Movies_Compose)
 
-Sometimes developers want to be different from other guys. This repository was created some years
-ago when I worked at the University of Sharif Now find time and update this and try to maintain the
-code when will find time. Yeah, Grpc, I remember when I heard this protocol, I hadn't worked with
-RestApi very well But Grpc is so much easier than Rest API in Android. Now I want to describe this
-repository with So many Technology like redux and Jetpack Compose and other things.
+Sometimes developers want to differentiate themselves from others. This repository was created a few years ago while I was working at the University of Sharif. Now, I have found some time to update and maintain the code. I remember when I first heard of gRPC, I was struggling with REST APIs. However, using gRPC with Android has been much easier for me. In this repository, I have used various technologies such as Redux, Jetpack Compose, and many others..
 
 So first clone this repository for a run in client Python
 Server: https://github.com/M-CAP7AIN/gRPC-Python-Server and set your Ip in BaseIp in (Constance
