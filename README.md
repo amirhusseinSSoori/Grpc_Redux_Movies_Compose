@@ -74,18 +74,16 @@ message VideoHeaderXModel {
 
 + GRPC
 + Jetpack compose
-+ Unit Test
 + REDUX (uniDirectional data flow)
++ navigation (compose accompanist)
++ UnitTest ( grpcTest - Mock)
++ coroutines - flow
++ and so many animation
 
 ## document about REDUX
 
 I think the best repository for the description of Redux is this repository with video and enough
 documents : https://github.com/AdamMc331/MVIExample
-
-+ navigation (compose accompanist)
-+ UnitTest ( grpcTest - Mock)
-+ coroutines - flow
-+ and so many animation
 
 <img src="/images/main_page.png" width="300">  <img src="/images/detail_page.png" width="300"> <img src="/images/search_page.png" width="300">
 
