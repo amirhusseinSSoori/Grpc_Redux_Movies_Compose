@@ -78,8 +78,7 @@ message VideoHeaderXModel {
 
 ## document about REDUX
 
-I think the best repository for the description of Redux is this repository with video and enough
-documents : https://github.com/AdamMc331/MVIExample
+I believe that this repository, which includes videos and sufficient documentation, is the best choice for learning about Redux . https://github.com/AdamMc331/MVIExample
 
 <img src="/images/main_page.png" width="300">  <img src="/images/detail_page.png" width="300"> <img src="/images/search_page.png" width="300">
 
