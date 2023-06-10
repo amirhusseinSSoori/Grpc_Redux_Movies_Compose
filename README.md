@@ -12,13 +12,13 @@ object Constance {
 }
 ```
 
-And There are Three Grpc Services (Unray) for Communication with the server.
+There are three Grpc services (Unary) available for communicating with the server:
 
-1 - get list Movies with filter ( GetVideosX ).
+1 - GetVideosX to get a list of movies with filters.
 
-2 - Search ( SearchVideosX ).
+2 - SearchVideosX to search for movies.
 
-3 - banner ( GetHeadersX ).
+3 - GetHeadersX to get banner information.
 
 ```kotlin
 service Body {
