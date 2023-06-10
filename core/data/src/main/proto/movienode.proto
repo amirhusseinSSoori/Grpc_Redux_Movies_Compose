@@ -11,7 +11,6 @@ package ServerBody;
 service Body {
   rpc GetVideosX (VideoListXRequest) returns (VideoListXReply) {}
   rpc SearchVideosX (VideoListXRequest) returns (VideoListXReply) {}
-
   rpc GetHeadersX (VideoHeaderXRequest) returns (VideoHeaderXReply) {}
 }
 
